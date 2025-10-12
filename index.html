@@ -1,15 +1,387 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>آموزش HTML</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مبانی برنامه‌نویسی پایتون</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #4a90ff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(74, 144, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(74, 144, 255, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #a0b0ff;
+            margin-bottom: 40px;
+        }
+
+        .team {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 144, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px 35px;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 15px 40px rgba(74, 144, 255, 0.3);
+        }
+
+        .team-member .role {
+            color: #ffd700;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-member .name {
+            font-size: 1.4em;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .nav-card {
+            background: linear-gradient(135deg, rgba(74, 144, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(74, 144, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .nav-card:hover::before {
+            transform: scale(1);
+        }
+
+        .nav-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 20px 60px rgba(74, 144, 255, 0.4);
+        }
+
+        .nav-card .icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nav-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: #fff;
+            position: relative;
+        }
+
+        .nav-card p {
+            color: #a0b0ff;
+            font-size: 0.95em;
+            position: relative;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: particle-float 4s infinite;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(74, 144, 255, 0.2);
+            color: #6080ff;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>به آموزش HTML خوش آمدید</h1>
-  <p>در این دوره، با اصول اولیه HTML آشنا می‌شوید.</p>
-  <ul>
-    <li><a href="lesson1.html">درس ۱: معرفی HTML</a></li>
-    <li><a href="lesson2.html">درس ۲: تگ‌ها و عناصر</a></li>
-  </ul>
+    <div class="stars" id="stars"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">🐍</div>
+            <h1>مبانی برنامه‌نویسی پایتون</h1>
+            <p class="subtitle">سفری هیجان‌انگیز به دنیای برنامه‌نویسی</p>
+            
+            <div class="team">
+                <div class="team-member">
+                    <div class="role">مدرس دوره</div>
+                    <div class="name">نام مدرس</div>
+                </div>
+                <div class="team-member">
+                    <div class="role">دستیار آموزشی</div>
+                    <div class="name">نام دستیار</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-grid">
+            <div class="nav-card" onclick="navigate('slides')">
+                <div class="icon">📊</div>
+                <h3>اسلایدها</h3>
+                <p>مطالب درسی و ارائه‌های کلاسی</p>
+            </div>
+
+            <div class="nav-card" onclick="navigate('syllabus')">
+                <div class="icon">📚</div>
+                <h3>سیلابس</h3>
+                <p>برنامه‌ریزی و محتوای دوره</p>
+            </div>
+
+            <div class="nav-card" onclick="navigate('assignments')">
+                <div class="icon">✍️</div>
+                <h3>تمرین‌ها</h3>
+                <p>تکالیف و پروژه‌های عملی</p>
+            </div>
+
+            <div class="nav-card" onclick="navigate('quizzes')">
+                <div class="icon">🎯</div>
+                <h3>آزمون‌ها و کوییزها</h3>
+                <p>ارزیابی و سنجش یادگیری</p>
+            </div>
+
+            <div class="nav-card" onclick="navigate('resources')">
+                <div class="icon">💡</div>
+                <h3>منابع</h3>
+                <p>مراجع و لینک‌های مفید</p>
+            </div>
+
+            <div class="nav-card" onclick="navigate('examples')">
+                <div class="icon">💻</div>
+                <h3>نمونه کدها</h3>
+                <p>مثال‌های کاربردی و پروژه‌ها</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>ساخته شده با ❤️ برای یادگیری پایتون</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - کلیه حقوق محفوظ است</p>
+        </footer>
+    </div>
+
+    <script>
+        // Generate stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Generate particles
+        const particlesContainer = document.getElementById('particles');
+        setInterval(() => {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.bottom = '0';
+            particlesContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 4000);
+        }, 800);
+
+        // Navigation function
+        function navigate(page) {
+            // Replace these with your actual page URLs
+            const urls = {
+                'slides': './slides/index.html',
+                'syllabus': './syllabus.html',
+                'assignments': './assignments/index.html',
+                'quizzes': './quizzes/index.html',
+                'resources': './resources.html',
+                'examples': './examples/index.html'
+            };
+            
+            // Uncomment this line when you have actual pages
+            // window.location.href = urls[page];
+            
+            // For now, just show an alert
+            alert('هدایت به صفحه: ' + page + '\n\nبرای فعال‌سازی، آدرس صفحات را در کد جاوااسکریپت تنظیم کنید.');
+        }
+
+        // Add hover effect to cards
+        document.querySelectorAll('.nav-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 215, 0, 0.15), rgba(74, 144, 255, 0.1))`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'linear-gradient(135deg, rgba(74, 144, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%)';
+            });
+        });
+    </script>
 </body>
 </html>
