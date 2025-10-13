@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
             background: #0a0e27;
             color: #fff;
             overflow-x: hidden;
@@ -58,17 +58,21 @@
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 175px;
+            height: 175px;
             margin: 0 auto 30px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
             animation: float 3s ease-in-out infinite;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: glow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(74, 144, 255, 0.5));
         }
 
         @keyframes float {
@@ -106,12 +110,15 @@
         }
 
         .team-member {
+            flex: 1;
+            max-width: 400px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(74, 144, 255, 0.3);
             border-radius: 20px;
             padding: 25px 35px;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .team-member:hover {
@@ -263,18 +270,21 @@
 
     <div class="container">
         <header>
-            <div class="logo">🐍</div>
+            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+            <div class="logo">
+                <img src="./assets/python-logo.png" alt="Python Logo">
+            </div>
             <h1>مبانی برنامه‌نویسی پایتون</h1>
             <p class="subtitle">سفری هیجان‌انگیز به دنیای برنامه‌نویسی</p>
             
             <div class="team">
                 <div class="team-member">
                     <div class="role">مدرس دوره</div>
-                    <div class="name">نام مدرس</div>
+                    <div class="name">آقای محمد نظری</div>
                 </div>
                 <div class="team-member">
-                    <div class="role">دستیار آموزشی</div>
-                    <div class="name">نام دستیار</div>
+                    <div class="role">سردستیار آموزشی</div>
+                    <div class="name">علی محمدزاده شبستری</div>
                 </div>
             </div>
         </header>
@@ -283,7 +293,7 @@
             <div class="nav-card" onclick="navigate('slides')">
                 <div class="icon">📊</div>
                 <h3>اسلایدها</h3>
-                <p>مطالب درسی و ارائه‌های کلاسی</p>
+                <p>مطالب درسی تکمیلی که دستیاران آموزشی برای شما آماده کرده‌اند</p>
             </div>
 
             <div class="nav-card" onclick="navigate('syllabus')">
@@ -353,19 +363,17 @@
         function navigate(page) {
             // Replace these with your actual page URLs
             const urls = {
-                'slides': './slides/index.html',
-                'syllabus': './syllabus.html',
-                'assignments': './assignments/index.html',
-                'quizzes': './quizzes/index.html',
-                'resources': './resources.html',
-                'examples': './examples/index.html'
+                'slides': './content/slides/index.html',
+                'syllabus': './content/syllabus/index.html',
+                'assignments': './content/assignments/index.html',
+                'quizzes': './content/quizzes/index.html',
+                'resources': './content/resources/index.html',
+                'examples': './content/examples/index.html'
             };
             
             // Uncomment this line when you have actual pages
-            // window.location.href = urls[page];
+            window.location.href = urls[page];
             
-            // For now, just show an alert
-            alert('هدایت به صفحه: ' + page + '\n\nبرای فعال‌سازی، آدرس صفحات را در کد جاوااسکریپت تنظیم کنید.');
         }
 
         // Add hover effect to cards

@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>آموزش اجزای اصلی کامپیوتر</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #1E1A3B 0%, #2D2654 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            animation: fadeInDown 1s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #B794F6, #E0BBE4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #E0BBE4;
+            font-weight: 300;
+        }
+
+        .slide {
+            background: #F9F9FB;
+            border-radius: 24px;
+            padding: 50px;
+            margin: 30px auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.8s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(183, 148, 246, 0.4);
+        }
+
+        .slide-header {
+            border-right: 6px solid #B794F6;
+            padding-right: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slide-header h2 {
+            font-size: 2.2em;
+            color: #1E1A3B;
+            margin-bottom: 10px;
+        }
+
+        .slide-header p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.9;
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, #E0BBE4 0%, #B794F6 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analogy-box::before {
+            content: "💡";
+            font-size: 3em;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.3;
+        }
+
+        .analogy-box h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .analogy-box p {
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .code-block {
+            background: #2D2654;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block::before {
+            content: "Python";
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #B794F6;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .code-block pre {
+            color: #E0BBE4;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #E0BBE4;
+        }
+
+        .keyword { color: #FF79C6; }
+        .string { color: #F1FA8C; }
+        .comment { color: #6272A4; font-style: italic; }
+        .function { color: #50FA7B; }
+        .number { color: #BD93F9; }
+
+        .output-block {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border-right: 4px solid #50FA7B;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .output-block h4 {
+            color: #50FA7B;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .output-block pre {
+            color: #50FA7B;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .error-output {
+            border-right-color: #FF5555;
+        }
+
+        .error-output h4 {
+            color: #FF5555;
+        }
+
+        .error-output pre {
+            color: #FF5555;
+        }
+
+        .quiz-box {
+            background: #EDEDED;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #B794F6;
+        }
+
+        .quiz-box h3 {
+            color: #1E1A3B;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .quiz-box p {
+            color: #444;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .takeaways {
+            background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .takeaways h3 {
+            color: #1E1A3B;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .takeaways ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .takeaways li {
+            padding: 12px 0;
+            padding-right: 35px;
+            position: relative;
+            color: #444;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .takeaways li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: #B794F6;
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #E0BBE4;
+            font-size: 0.95em;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(183, 148, 246, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .slide {
+                padding: 30px 20px;
+            }
+
+            .slide-header h2 {
+                font-size: 1.6em;
+            }
+
+            .code-block, .output-block {
+                padding: 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .highlight-box {
+            background: #FFF4E6;
+            border-right: 4px solid #FF9F43;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box p {
+            color: #333;
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #B794F6;
+            font-weight: 600;
+        }
+
+        .code-block code {
+            background: none;
+            color: #E0BBE4;
+            font-weight: normal;
+            padding: 0;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖥️ آموزش اجزای اصلی کامپیوتر</h1>
+            <p>درک سخت‌افزار کامپیوتر برای برنامه‌نویسان ضروری است</p>
+        </header>
+
+        <!-- Slide 1: Introduction -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۱. مقدمه: سخت‌افزار کامپیوتر چیست و چرا مهم است؟</h2>
+                <p>کامپیوتر یک سیستم الکترونیکی است که داده‌ها را پردازش می‌کند</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: رستوران</h3>
+                <p>کامپیوتر مثل یک رستوران است: ورودی (سفارش) → پردازش (آشپزی) → خروجی (غذا) → ذخیره‌سازی (انبار)</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># مفهوم اصلی: ورودی → پردازش → خروجی → ذخیره‌سازی</span>
+<span class="keyword">def</span> <span class="function">computer_workflow</span>():
+    <span class="keyword">input_data</span> = دریافت_ورودی()  <span class="comment"># مثل کلیک ماوس یا فشار دکمه کیبورد</span>
+    <span class="keyword">processed_data</span> = پردازش_داده(input_data)  <span class="comment"># CPU کار می‌کند</span>
+    <span class="keyword">output</span> = نمایش_نتیجه(processed_data)  <span class="comment"># روی مانیتور نشان داده می‌شود</span>
+    ذخیره_اطلاعات(processed_data)  <span class="comment"># در هارد دیسک ذخیره می‌شود</span></code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🎯 چرا یادگیری سخت‌افزار مهم است؟</h4>
+                <pre>• عیب‌یابی مشکلات کامپیوتر
+• ارتقاء قطعات برای عملکرد بهتر
+• انتخاب هوشمندانه هنگام خرید
+• درک بهتر نحوه اجرای برنامه‌ها</pre>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال تفکری</h3>
+                <p>اگر کامپیوتر شما کند است، کدام قطعه را اول بررسی می‌کنید و چرا؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی</h3>
+                <ul>
+                    <li>کامپیوتر یک سیستم الکترونیکی برای پردازش داده است</li>
+                    <li>چرخه اصلی: ورودی → پردازش → خروجی → ذخیره‌سازی</li>
+                    <li>درک سخت‌افزار به عیب‌یابی و خرید بهتر کمک می‌کند</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 2: CPU -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۲. پردازنده مرکزی (CPU) - "مغز" کامپیوتر</h2>
+                <p>واحد پردازش مرکزی، دستورات را اجرا و محاسبات را انجام می‌دهد</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>🧠 تشبیه: مغز انسان</h3>
+                <p>CPU مثل مغز انسان است که تمام تصمیم‌ها و محاسبات را انجام می‌دهد</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی کار CPU در پایتون</span>
+<span class="keyword">class</span> <span class="function">CPU</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, cores=<span class="number">4</span>, clock_speed=<span class="number">3.5</span>):
+        <span class="keyword">self</span>.cores = cores  <span class="comment"># تعداد هسته‌ها</span>
+        <span class="keyword">self</span>.clock_speed = clock_speed  <span class="comment"># سرعت کلاک بر حسب GHz</span>
+        <span class="keyword">self</span>.threads = cores * <span class="number">2</span>  <span class="comment"># تعداد رشته‌ها</span>
+    
+    <span class="keyword">def</span> <span class="function">execute_instruction</span>(<span class="keyword">self</span>, instruction):
+        <span class="keyword">return</span> f<span class="string">"دستور '{instruction}' اجرا شد با سرعت {self.clock_speed}GHz"</span>
+
+<span class="comment"># ایجاد یک CPU نمونه</span>
+my_cpu = CPU(cores=<span class="number">8</span>, clock_speed=<span class="number">4.2</span>)</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>⚡ مشخصات فنی CPU</h4>
+                <pre>• هسته‌ها (Cores): 1, 2, 4, 8, 16 (هرچه بیشتر، چندوظیفگی بهتر)
+• سرعت کلاک (Clock Speed): 2.0GHz تا 5.0GHz (هرچه بیشتر، سریع‌تر)
+• رشته‌ها (Threads): قابلیت اجرای چند کار به صورت همزمان</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 نکته حرفه‌ای: CPU با سایر قطعات از طریق مادربرد ارتباط برقرار می‌کند و داده‌ها را از RAM می‌خواند و در آن می‌نویسد</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال مقایسه‌ای</h3>
+                <p>یک CPU با 4 هسته و سرعت 3.0GHz بهتر است یا یک CPU با 2 هسته و سرعت 4.0GHz؟ چرا؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی CPU</h3>
+                <ul>
+                    <li>CPU مغز کامپیوتر است و دستورات را اجرا می‌کند</li>
+                    <li>هسته‌های بیشتر = چندوظیفگی بهتر</li>
+                    <li>سرعت کلاک بالاتر = اجرای سریع‌تر دستورات</li>
+                    <li>CPU با تمام قطعات از طریق مادربرد ارتباط دارد</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Motherboard -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۳. مادربرد - "سیستم عصبی" کامپیوتر</h2>
+                <p>برد اصلی که تمام قطعات کامپیوتر را به هم متصل می‌کند</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>🛣️ تشبیه: سیستم جاده‌ها</h3>
+                <p>مادربرد مثل شبکه جاده‌های یک شهر است که تمام نقاط مهم را به هم وصل می‌کند</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی اتصالات مادربرد</span>
+<span class="keyword">class</span> <span class="function">Motherboard</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>):
+        <span class="keyword">self</span>.components = {
+            <span class="string">'cpu_socket'</span>: <span class="string">'خالی'</span>,
+            <span class="string">'ram_slots'</span>: [<span class="string">'خالی'</span>, <span class="string">'خالی'</span>, <span class="string">'خالی'</span>, <span class="string">'خالی'</span>],
+            <span class="string">'pcie_slots'</span>: [<span class="string">'خالی'</span>, <span class="string">'خالی'</span>],
+            <span class="string">'sata_ports'</span>: [<span class="string">'خالی'</span>, <span class="string">'خالی'</span>, <span class="string">'خالی'</span>, <span class="string">'خالی'</span>],
+            <span class="string">'power_connector'</span>: <span class="string">'متصل نشده'</span>
+        }
+    
+    <span class="keyword">def</span> <span class="function">connect_cpu</span>(<span class="keyword">self</span>, cpu):
+        <span class="keyword">self</span>.components[<span class="string">'cpu_socket'</span>] = cpu
+        <span class="keyword">return</span> <span class="string">"CPU متصل شد"</span>
+
+<span class="comment"># استفاده از مادربرد</span>
+mb = Motherboard()</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🔌 قسمت‌های اصلی مادربرد</h4>
+                <pre>• سوکت CPU: جایگاه نصب پردازنده
+• اسلات‌های RAM: برای نصب حافظه موقت
+• اسلات‌های PCIe: برای کارت گرافیک و سایر کارت‌ها
+• پورت‌های SATA: برای اتصال هارد و SSD
+• کانکتور برق: تغذیه مادربرد</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 تراشه‌ست (Chipset) نقش مدیر ترافیک را بازی می‌کند و جریان داده بین قطعات مختلف را کنترل می‌کند</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال تشخیصی</h3>
+                <p>اگر کارت گرافیک شما شناخته نمی‌شود، کدام قسمت مادربرد را بررسی می‌کنید؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی مادربرد</h3>
+                <ul>
+                    <li>مادربرد تمام قطعات را به هم متصل می‌کند</li>
+                    <li>سوکت CPU، اسلات RAM و PCIe قسمت‌های حیاتی هستند</li>
+                    <li>تراشه‌ست جریان داده را مدیریت می‌کند</li>
+                    <li>انتخاب مادربرد مناسب با CPU بسیار مهم است</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 4: RAM -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۴. حافظه موقت (RAM) - "حافظه کوتاه‌مدت"</h2>
+                <p>حافظه با دسترسی تصادفی برای ذخیره‌سازی موقت داده‌های فعال</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>📝 تشبیه: میز کار</h3>
+                <p>RAM مثل میز کار شماست - فضای موقت برای کار روی پروژه‌های فعال. وقتی کامپیوتر خاموش می‌شود، میز پاک می‌شود!</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی کار RAM در پایتون</span>
+<span class="keyword">class</span> <span class="function">RAM</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, capacity=<span class="number">8</span>, speed=<span class="number">3200</span>):
+        <span class="keyword">self</span>.capacity = capacity  <span class="comment"># ظرفیت بر حسب GB</span>
+        <span class="keyword">self</span>.speed = speed  <span class="comment"># سرعت بر حسب MHz</span>
+        <span class="keyword">self</span>.data = {}  <span class="comment"># داده‌های موقت</span>
+        <span class="keyword">self</span>.is_volatile = <span class="keyword">True</span>  <span class="comment"># فرار - با قطع برق پاک می‌شود</span>
+    
+    <span class="keyword">def</span> <span class="function">store_temporary</span>(<span class="keyword">self</span>, key, value):
+        <span class="keyword">if</span> len(<span class="keyword">self</span>.data) < <span class="keyword">self</span>.capacity:
+            <span class="keyword">self</span>.data[key] = value
+            <span class="keyword">return</span> <span class="string">f"داده '{key}' ذخیره شد"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"RAM پر است! نیاز به مدیریت حافظه"</span>
+
+<span class="comment"># ایجاد RAM نمونه</span>
+my_ram = RAM(capacity=<span class="number">16</span>, speed=<span class="number">3600</span>)</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>⚡ تفاوت RAM و حافظه ذخیره‌سازی</h4>
+                <pre>RAM (حافظه موقت):
+• بسیار سریع
+• موقت (با قطع برق پاک می‌شود)
+• برای داده‌های فعال برنامه‌ها
+
+ذخیره‌سازی (هارد/SSD):
+• کندتر
+• دائمی (با قطع برق باقی می‌ماند)
+• برای فایل‌ها و برنامه‌ها</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 هرچه RAM بیشتر باشد، می‌توانید برنامه‌های بیشتری را همزمان باز کنید بدون اینکه کامپیوتر کند شود</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال عملی</h3>
+                <p>اگر هنگام کار با چند برنامه، کامپیوتر شما کند می‌شود، احتمالاً چه مشکلی وجود دارد و چطور حل می‌شود؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی RAM</h3>
+                <ul>
+                    <li>RAM حافظه موقت و بسیار سریع است</li>
+                    <li>داده‌های RAM با قطع برق پاک می‌شوند (فرار)</li>
+                    <li>ظرفیت بیشتر = اجرای بهتر برنامه‌های متعدد</li>
+                    <li>سرعت بالاتر = انتقال داده سریع‌تر</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 5: Storage -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۵. دستگاه‌های ذخیره‌سازی - "حافظه بلندمدت"</h2>
+                <p>ذخیره‌سازی دائمی داده‌ها، برنامه‌ها و سیستم عامل</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>📚 تشبیه: کتابخانه</h3>
+                <p>ذخیره‌سازی مثل یک کتابخانه است - تمام کتاب‌ها (داده‌ها) برای همیشه نگهداری می‌شوند تا وقتی که نیاز دارید</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی انواع مختلف ذخیره‌سازی</span>
+<span class="keyword">class</span> <span class="function">StorageDevice</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, type, capacity, speed, cost):
+        <span class="keyword">self</span>.type = type
+        <span class="keyword">self</span>.capacity = capacity
+        <span class="keyword">self</span>.speed = speed
+        <span class="keyword">self</span>.cost = cost
+        <span class="keyword">self</span>.data = {}
+    
+    <span class="keyword">def</span> <span class="function">save_permanent</span>(<span class="keyword">self</span>, filename, content):
+        <span class="keyword">self</span>.data[filename] = content
+        <span class="keyword">return</span> <span class="string">f"فایل '{filename}' ذخیره شد ({self.type})"</span>
+
+<span class="comment"># ایجاد انواع مختلف ذخیره‌سازی</span>
+hdd = StorageDevice(<span class="string">"HDD"</span>, <span class="number">1000</span>, <span class="number">120</span>, <span class="number">50</span>)  <span class="comment"># ظرفیت: GB, سرعت: MB/s, هزینه: دلار</span>
+ssd = StorageDevice(<span class="string">"SSD"</span>, <span class="number">500</span>, <span class="number">550</span>, <span class="number">80</span>)
+nvme = StorageDevice(<span class="string">"NVMe"</span>, <span class="number">1000</span>, <span class="number">3500</span>, <span class="number">120</span>)</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>📊 مقایسه انواع ذخیره‌سازی</h4>
+                <pre>هارد دیسک (HDD):
+• سرعت: 80-160 MB/s
+• هزینه: کم
+• دوام: متوسط (قطعات متحرک)
+
+اس اس دی (SSD):
+• سرعت: 200-550 MB/s
+• هزینه: متوسط
+• دوام: بالا (بدون قطعات متحرک)
+
+ان وی ام ای (NVMe):
+• سرعت: 1500-7000 MB/s
+• هزینه: بالا
+• دوام: بسیار بالا</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 برای بهترین عملکرد: از NVMe برای سیستم عامل و برنامه‌ها، و از HDD برای ذخیره‌سازی فایل‌های حجیم مانند فیلم و عکس استفاده کنید</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال انتخابی</h3>
+                <p>برای یک لپتاپ دانشجویی که نیاز به سرعت بالا و مصرف باتری کم دارد، کدام نوع ذخیره‌سازی بهتر است و چرا؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی ذخیره‌سازی</h3>
+                <ul>
+                    <li>HDD: ظرفیت بالا، هزینه کم، سرعت کم</li>
+                    <li>SSD: سرعت بالا، دوام بالا، هزینه متوسط</li>
+                    <li>NVMe: بسیار سریع، ایده‌آل برای سیستم عامل</li>
+                    <li>داده‌ها در ذخیره‌سازی دائمی هستند</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 6: PSU -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۶. منبع تغذیه (PSU) - "قلب" کامپیوتر</h2>
+                <p>تبدیل برق AC از پریز به برق DC برای قطعات کامپیوتر</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>❤️ تشبیه: قلب و سیستم گردش خون</h3>
+                <p>PSU مثل قلب است که خون (برق) را به تمام اعضای بدن (قطعات کامپیوتر) پمپاژ می‌کند</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی کار منبع تغذیه</span>
+<span class="keyword">class</span> <span class="function">PowerSupply</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, wattage=<span class="number">650</span>, efficiency=<span class="string">"80 Plus Bronze"</span>):
+        <span class="keyword">self</span>.wattage = wattage  <span class="comment"># توان خروجی بر حسب وات</span>
+        <span class="keyword">self</span>.efficiency = efficiency  <span class="comment"># راندمان</span>
+        <span class="keyword">self</span>.ac_input = <span class="number">220</span>  <span class="comment"># ورودی AC از پریز</span>
+        <span class="keyword">self</span>.dc_output = {  <span class="comment"># خروجی DC برای قطعات</span>
+            <span class="string">'12v'</span>: <span class="number">12</span>,
+            <span class="string">'5v'</span>: <span class="number">5</span>, 
+            <span class="string">'3.3v'</span>: <span class="number">3.3</span>
+        }
+    
+    <span class="keyword">def</span> <span class="function">convert_power</span>(<span class="keyword">self</span>):
+        <span class="keyword">return</span> <span class="string">f"تبدیل {self.ac_input}V AC به DC برای قطعات"</span>
+
+<span class="comment"># ایجاد PSU نمونه</span>
+my_psu = PowerSupply(wattage=<span class="number">750</span>, efficiency=<span class="string">"80 Plus Gold"</span>)</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🏆 استانداردهای راندمان</h4>
+                <pre>80 Plus White: 80% راندمان
+80 Plus Bronze: 85% راندمان  
+80 Plus Silver: 88% راندمان
+80 Plus Gold: 90% راندمان
+80 Plus Platinum: 92% راندمان
+80 Plus Titanium: 94% راندمان</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 یک PSU با کیفیت خوب نه تنها مصرف برق را کاهش می‌دهد، بلکه از قطعات کامپیوتر در برابر نوسانات برق محافظت می‌کند</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال محاسباتی</h3>
+                <p>اگر کامپیوتر شما دارای یک کارت گرافیک 300 واتی و یک CPU 150 واتی است، حداقل توان مورد نیاز برای PSU چقدر باید باشد؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی PSU</h3>
+                <ul>
+                    <li>PSU برق AC را به DC تبدیل می‌کند</li>
+                    <li>توان (وات) باید از کل مصرف قطعات بیشتر باشد</li>
+                    <li>راندمان بالاتر = هدررفت انرژی کمتر</li>
+                    <li>PSU با کیفیت از قطعات محافظت می‌کند</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 7: I/O Devices -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۷. دستگاه‌های ورودی/خروجی - "ارتباط"</h2>
+                <p>ابزارهایی برای ارتباط کاربر با کامپیوتر و کامپیوتر با کاربر</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>🗣️ تشبیه: مترجم</h3>
+                <p>دستگاه‌های I/O مثل یک مترجم هستند که بین زبان انسان و زبان کامپیوتر ترجمه می‌کنند</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی دستگاه‌های ورودی و خروجی</span>
+<span class="keyword">class</span> <span class="function">InputDevice</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, name, input_type):
+        <span class="keyword">self</span>.name = name
+        <span class="keyword">self</span>.input_type = input_type
+    
+    <span class="keyword">def</span> <span class="function">send_to_computer</span>(<span class="keyword">self</span>, data):
+        <span class="keyword">return</span> <span class="string">f"داده از {self.name} به کامپیوتر ارسال شد: {data}"</span>
+
+<span class="keyword">class</span> <span class="function">OutputDevice</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, name, output_type):
+        <span class="keyword">self</span>.name = name
+        <span class="keyword">self</span>.output_type = output_type
+    
+    <span class="keyword">def</span> <span class="function">receive_from_computer</span>(<span class="keyword">self</span>, data):
+        <span class="keyword">return</span> <span class="string">f"داده از کامپیوتر به {self.name} ارسال شد: {data}"</span>
+
+<span class="comment"># ایجاد دستگاه‌های نمونه</span>
+keyboard = InputDevice(<span class="string">"کیبورد"</span>, <span class="string">"متنی"</span>)
+monitor = OutputDevice(<span class="string">"مانیتور"</span>, <span class="string">"تصویری"</span>)</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🔌 پورت‌های رایج</h4>
+                <pre>USB: اتصال دستگاه‌های مختلف
+HDMI: انتقال صدا و تصویر با کیفیت بالا
+DisplayPort: مشابه HDMI با قابلیت‌های بیشتر
+Audio Jack: اتصال هدفون و میکروفون
+Ethernet: اتصال به شبکه</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 USB-C جدیدترین استاندارد است که قابلیت انتقال داده، تصویر و برق را همزمان دارد و دو طرفه است (فرقی نمی‌کند چطور وصل شود)</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال طبقه‌بندی</h3>
+                <p>دستگاه‌های زیر را به دو گروه ورودی و خروجی تقسیم کنید: ماوس، پرینتر، اسپیکر، وب‌کم، اسکنر، هدفون</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی I/O</h3>
+                <ul>
+                    <li>ورودی: داده از کاربر به کامپیوتر (کیبورد، ماوس)</li>
+                    <li>خروجی: داده از کامپیوتر به کاربر (مانیتور، اسپیکر)</li>
+                    <li>پورت‌ها رابط فیزیکی اتصال هستند</li>
+                    <li>USB-C استاندارد مدرن و همه‌کاره است</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 8: GPU -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۸. واحد پردازش گرافیکی (GPU) - "هنرمند بصری"</h2>
+                <p>پردازنده تخصصی برای رندرینگ تصاویر، ویدیوها و انیمیشن‌ها</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>🎨 تشبیه: استودیوی هنری</h3>
+                <p>GPU مثل یک استودیوی هنری بزرگ با چندین هنرمند است که همزمان روی بخش‌های مختلف یک نقاشی کار می‌کنند</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی تفاوت CPU و GPU</span>
+<span class="keyword">class</span> <span class="function">CPU</span>:
+    <span class="keyword">def</span> <span class="function">process_task</span>(<span class="keyword">self</span>, tasks):
+        <span class="comment"># CPU کارها را یکی یکی سریع انجام می‌دهد</span>
+        <span class="keyword">for</span> task <span class="keyword">in</span> tasks:
+            <span class="keyword">print</span>(<span class="string">f"CPU در حال پردازش: {task}"</span>)
+        <span class="keyword">return</span> <span class="string">"همه کارها تکمیل شد (به صورت سریالی)"</span>
+
+<span class="keyword">class</span> <span class="function">GPU</span>:
+    <span class="keyword">def</span> <span class="function">process_task</span>(<span class="keyword">self</span>, tasks):
+        <span class="comment"># GPU کارها را به صورت موازی انجام می‌دهد</span>
+        <span class="keyword">for</span> task <span class="keyword">in</span> tasks:
+            <span class="keyword">print</span>(<span class="string">f"GPU در حال پردازش موازی: {task}"</span>)
+        <span class="keyword">return</span> <span class="string">"همه کارها تکمیل شد (به صورت موازی)"</span>
+
+<span class="comment"># تفاوت در پردازش</span>
+cpu = CPU()
+gpu = GPU()</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🎯 انواع GPU</h4>
+                <pre>گرافیک مجتمع (Integrated):
+• داخل CPU تعبیه شده
+• مناسب کارهای معمولی
+• مصرف برق کم
+
+کارت گرافیک اختصاصی (Dedicated):
+• قطعه جداگانه
+• مناسب گیمینگ و طراحی
+• قدرت پردازش بسیار بالا</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 GPUهای مدرن نه تنها برای گرافیک، بلکه برای محاسبات علمی، هوش مصنوعی و استخراج ارز دیجیتال نیز استفاده می‌شوند</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال کاربردی</h3>
+                <p>برای چه کارهایی نیاز به کارت گرافیک اختصاصی داریم و برای چه کارهایی گرافیک مجتمع کافی است؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی GPU</h3>
+                <ul>
+                    <li>GPU برای پردازش موازی طراحی شده</li>
+                    <li>گرافیک مجتمع: برای کارهای عادی، مصرف کم</li>
+                    <li>کارت گرافیک: برای گیمینگ و طراحی حرفه‌ای</li>
+                    <li>GPU در هوش مصنوعی و محاسبات علمی کاربرد دارد</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 9: Cooling -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۹. سیستم‌های خنک‌کننده - "کنترل دما"</h2>
+                <p>پیشگیری از overheating برای اطمینان از پایداری و طول عمر قطعات</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>❄️ تشبیه: سیستم تهویه مطبوع</h3>
+                <p>خنک‌کننده‌ها مثل کولر هستند که دمای محیط را در حد مطلوب نگه می‌دارند تا ساکنان (قطعات کامپیوتر) راحت باشند</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># شبیه‌سازی سیستم خنک‌کننده</span>
+<span class="keyword">class</span> <span class="function">CoolingSystem</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, cooling_type):
+        <span class="keyword">self</span>.cooling_type = cooling_type
+        <span class="keyword">self</span>.current_temp = <span class="number">35</span>  <span class="comment"># دمای فعلی</span>
+        <span class="keyword">self</span>.max_safe_temp = <span class="number">85</span>  <span class="comment"># حداکثر دمای ایمن</span>
+    
+    <span class="keyword">def</span> <span class="function">check_temperature</span>(<span class="keyword">self</span>):
+        <span class="keyword">if</span> <span class="keyword">self</span>.current_temp < <span class="keyword">self</span>.max_safe_temp:
+            <span class="keyword">return</span> <span class="string">f"دمای فعلی: {self.current_temp}°C - وضعیت نرمال ✅"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">f"دمای فعلی: {self.current_temp}°C - خطر overheating! ❌"</span>
+    
+    <span class="keyword">def</span> <span class="function">apply_thermal_paste</span>(<span class="keyword">self</span>):
+        <span class="keyword">self</span>.current_temp -= <span class="number">5</span>  <span class="comment"># خمیر thermal دما را کاهش می‌دهد</span>
+        <span class="keyword">return</span> <span class="string">"خمیر thermal اعمال شد. دما کاهش یافت."</span>
+
+<span class="comment"># ایجاد سیستم‌های خنک‌کننده مختلف</span>
+air_cooler = CoolingSystem(<span class="string">"هواخنک"</span>)
+liquid_cooler = CoolingSystem(<span class="string">"آب‌خنک"</span>)</code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🌡️ انواع سیستم‌های خنک‌کننده</h4>
+                <pre>خنک‌کننده هوایی (Air Cooling):
+• هیت‌سینک + فن
+• مقرون به صرفه
+• نگهداری آسان
+
+خنک‌کننده آبی (Liquid Cooling):
+• عملکرد بهتر
+• قیمت بالاتر
+• نیاز به نگهداری بیشتر</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 خمیر thermal یک ماده رسانای حرارتی است که بین CPU و هیت‌سینک قرار می‌گیرد و انتقال حرارت را بهبود می‌بخشد</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال عیب‌یابی</h3>
+                <p>اگر کامپیوتر شما بعد از چند ساعت کار کردن، خودش خاموش می‌شود، احتمالاً چه مشکلی دارد و چگونه آن را حل می‌کنید؟</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 نکات کلیدی خنک‌کننده</h3>
+                <ul>
+                    <li>خنک‌کنندگی از overheating جلوگیری می‌کند</li>
+                    <li>خنک‌کننده هوایی: اقتصادی و قابل اعتماد</li>
+                    <li>خنک‌کننده آبی: عملکرد بهتر برای اورکلاک</li>
+                    <li>خمیر thermal انتقال حرارت را بهبود می‌بخشد</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 10: Final Exercise -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۱۰. تمرین نهایی و جمع‌بندی</h2>
+                <p>ساختن یک کامپیوتر فرضی و مرور تمام مفاهیم یادگرفته شده</p>
+            </div>
+            
+            <div class="analogy-box">
+                <h3>🏗️ تشبیه: ساختن یک خانه</h3>
+                <p>ساختن کامپیوتر مثل ساختن خانه است - هر قطعه نقش خاصی دارد و همه با هم کار می‌کنند تا یک سیستم کامل ایجاد شود</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># کلاس کامل برای یک کامپیوتر</span>
+<span class="keyword">class</span> <span class="function">Computer</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, purpose):
+        <span class="keyword">self</span>.purpose = purpose
+        <span class="keyword">self</span>.components = {}
+    
+    <span class="keyword">def</span> <span class="function">add_component</span>(<span class="keyword">self</span>, name, specs, reason):
+        <span class="keyword">self</span>.components[name] = {
+            <span class="string">'specs'</span>: specs,
+            <span class="string">'reason'</span>: reason
+        }
+    
+    <span class="keyword">def</span> <span class="function">show_build</span>(<span class="keyword">self</span>):
+        <span class="keyword">print</span>(<span class="string">f"کامپیوتر {self.purpose}:"</span>)
+        <span class="keyword">for</span> component, details <span class="keyword">in</span> <span class="keyword">self</span>.components.items():
+            <span class="keyword">print</span>(<span class="string">f"- {component}: {details['specs']}"</span>)
+            <span class="keyword">print</span>(<span class="string">f"  دلیل انتخاب: {details['reason']}"</span>)
+
+<span class="comment"># تمرین: یک کامپیوتر برای خودتان طراحی کنید!</span></code></pre>
+            </div>
+
+            <div class="output-block">
+                <h4>🎯 تمرین نهایی: "یک کامپیوتر بسازید"</h4>
+                <pre>سناریو: یک کامپیوتر برای برنامه‌نویسی و گیمینگ سبک
+
+• CPU: Intel Core i5 12400 (6 هسته)
+• مادربرد: B660 با پورت‌های USB-C
+• RAM: 16GB DDR4 3200MHz
+• ذخیره‌سازی: NVMe 1TB + HDD 2TB
+• GPU: RTX 3060 12GB
+• PSU: 650W 80 Plus Gold
+• خنک‌کننده: هوایی با کیفیت</pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 تمام قطعات کامپیوتر با هم به عنوان یک سیستم کار می‌کنند - CPU داده را از RAM می‌خواند، GPU تصاویر را رندر می‌کند، PSU برق می‌دهد، و مادربرد همه را به هم وصل می‌کند</p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ پروژه عملی</h3>
+                <p>یک کامپیوتر برای یکی از موارد زیر طراحی کنید و انتخاب هر قطعه را توضیح دهید:
+                <br>۱- دفتر کار خانگی اقتصادی
+                <br>۲- استودیو طراحی حرفه‌ای
+                <br>۳- سرور استریمینگ بازی</p>
+            </div>
+
+            <div class="takeaways">
+                <h3>📌 جمع‌بندی نهایی</h3>
+                <ul>
+                    <li>CPU مغز کامپیوتر است و محاسبات را انجام می‌دهد</li>
+                    <li>مادربرد تمام قطعات را به هم متصل می‌کند</li>
+                    <li>RAM حافظه موقت و سریع است</li>
+                    <li>ذخیره‌سازی داده‌ها را دائمی نگه می‌دارد</li>
+                    <li>PSU برق مورد نیاز را تأمین می‌کند</li>
+                    <li>GPU پردازش گرافیکی را انجام می‌دهد</li>
+                    <li>همه قطعات با هم کار می‌کنند تا چرخه ورودی-پردازش-خروجی-ذخیره‌سازی اجرا شود</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="nav-buttons">
+            <button class="nav-btn">قبلی</button>
+            <button class="nav-btn">بعدی</button>
+        </div>
+
+        <footer>
+            <p>🖥️ دوره آموزش اجزای اصلی کامپیوتر | طراحی شده برای دانشجویان برنامه‌نویسی</p>
+            <p>© 2024 - تمام حقوق محفوظ است</p>
+        </footer>
+    </div>
+</body>
+</html>

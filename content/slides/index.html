@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اسلایدها - مبانی برنامه‌نویسی پایتون</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 40%, #FFE5B4 100%);
+            color: #2c3e50;
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sun */
+        .sun {
+            position: fixed;
+            top: 80px;
+            left: 100px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.6), 0 0 100px rgba(255, 165, 0, 0.4);
+            animation: sunPulse 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 60px rgba(255, 215, 0, 0.6), 0 0 100px rgba(255, 165, 0, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 80px rgba(255, 215, 0, 0.8), 0 0 120px rgba(255, 165, 0, 0.6); }
+        }
+
+        /* Sun rays */
+        .sun::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            right: -40px;
+            bottom: -40px;
+            background: 
+                linear-gradient(0deg, transparent 48%, rgba(255, 215, 0, 0.3) 50%, transparent 52%),
+                linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.3) 50%, transparent 52%),
+                linear-gradient(90deg, transparent 48%, rgba(255, 215, 0, 0.3) 50%, transparent 52%),
+                linear-gradient(135deg, transparent 48%, rgba(255, 215, 0, 0.3) 50%, transparent 52%);
+            animation: rotateSun 20s linear infinite;
+        }
+
+        @keyframes rotateSun {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Clouds */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+            animation: floatCloud 60s linear infinite;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+        }
+
+        .cloud1 {
+            width: 120px;
+            height: 40px;
+            top: 100px;
+            right: -150px;
+            animation-duration: 45s;
+        }
+
+        .cloud1::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            right: 20px;
+        }
+
+        .cloud1::after {
+            width: 60px;
+            height: 40px;
+            top: -15px;
+            right: 50px;
+        }
+
+        .cloud2 {
+            width: 150px;
+            height: 50px;
+            top: 200px;
+            right: -200px;
+            animation-duration: 55s;
+            animation-delay: -20s;
+        }
+
+        .cloud2::before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            right: 30px;
+        }
+
+        .cloud2::after {
+            width: 70px;
+            height: 50px;
+            top: -20px;
+            right: 60px;
+        }
+
+        .cloud3 {
+            width: 100px;
+            height: 35px;
+            top: 50px;
+            right: -120px;
+            animation-duration: 50s;
+            animation-delay: -35s;
+        }
+
+        .cloud3::before {
+            width: 45px;
+            height: 45px;
+            top: -20px;
+            right: 15px;
+        }
+
+        .cloud3::after {
+            width: 50px;
+            height: 35px;
+            top: -12px;
+            right: 40px;
+        }
+
+        @keyframes floatCloud {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(100vw + 200px)); }
+        }
+
+        /* Birds */
+        .birds {
+            position: fixed;
+            top: 150px;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .bird {
+            position: absolute;
+            animation: flyBird 25s ease-in-out infinite;
+        }
+
+        .bird::before, .bird::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #34495e;
+        }
+
+        .bird::before {
+            transform: rotate(-25deg);
+            animation: flapWing 0.5s ease-in-out infinite;
+        }
+
+        .bird::after {
+            transform: rotate(25deg);
+            animation: flapWing 0.5s ease-in-out infinite reverse;
+        }
+
+        @keyframes flyBird {
+            0%, 100% { transform: translate(-100px, 0) scale(0.8); }
+            50% { transform: translate(100vw, -50px) scale(1); }
+        }
+
+        @keyframes flapWing {
+            0%, 100% { transform: rotate(-25deg); }
+            50% { transform: rotate(-40deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 80px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Cloud title container */
+        .title-cloud {
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 45px 70px;
+            border-radius: 150px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .title-cloud::before, .title-cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .title-cloud::before {
+            width: 110px;
+            height: 110px;
+            top: -45px;
+            right: 100px;
+        }
+
+        .title-cloud::after {
+            width: 130px;
+            height: 100px;
+            top: -35px;
+            right: 180px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 100;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            color: #5a6c7d;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        .slides-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* Flower card design */
+        .slide-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border: 3px solid transparent;
+            border-radius: 25px;
+            padding: 35px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: growFlower 0.8s ease forwards;
+        }
+
+        @keyframes growFlower {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-item:nth-child(1) { animation-delay: 0.1s; }
+        .slide-item:nth-child(2) { animation-delay: 0.2s; }
+        .slide-item:nth-child(3) { animation-delay: 0.3s; }
+        .slide-item:nth-child(4) { animation-delay: 0.4s; }
+        .slide-item:nth-child(5) { animation-delay: 0.5s; }
+        .slide-item:nth-child(6) { animation-delay: 0.6s; }
+        .slide-item:nth-child(7) { animation-delay: 0.7s; }
+        .slide-item:nth-child(8) { animation-delay: 0.8s; }
+        .slide-item:nth-child(9) { animation-delay: 0.9s; }
+        .slide-item:nth-child(10) { animation-delay: 1s; }
+
+        /* Vine decorations */
+        .slide-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: linear-gradient(180deg, 
+                #228B22 0%, 
+                #32CD32 30%, 
+                #90EE90 60%, 
+                #228B22 100%);
+            border-radius: 4px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Leaves */
+        .slide-item::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 30%;
+            width: 25px;
+            height: 15px;
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+            border-radius: 0 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 
+                0 30px 0 -5px #32CD32,
+                0 60px 0 -8px #228B22;
+        }
+
+        .slide-item:hover {
+            transform: translateX(-15px) scale(1.02);
+            border-color: rgba(255, 192, 203, 0.5);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 240, 245, 1) 100%);
+        }
+
+        /* Flower number badge */
+        .slide-number {
+            flex-shrink: 0;
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            box-shadow: 
+                0 5px 20px rgba(255, 105, 180, 0.4),
+                inset 0 -5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        /* Flower petals */
+        .slide-number::before {
+            content: '';
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 50% 0%, #FFB6C1 10%, transparent 10%),
+                radial-gradient(circle at 100% 50%, #FFB6C1 10%, transparent 10%),
+                radial-gradient(circle at 50% 100%, #FFB6C1 10%, transparent 10%),
+                radial-gradient(circle at 0% 50%, #FFB6C1 10%, transparent 10%),
+                radial-gradient(circle at 85% 85%, #FFC0CB 10%, transparent 10%),
+                radial-gradient(circle at 15% 85%, #FFC0CB 10%, transparent 10%),
+                radial-gradient(circle at 85% 15%, #FFC0CB 10%, transparent 10%),
+                radial-gradient(circle at 15% 15%, #FFC0CB 10%, transparent 10%);
+            z-index: -1;
+            animation: petalRotate 20s linear infinite;
+        }
+
+        @keyframes petalRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .slide-item:hover .slide-number {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        .slide-content {
+            flex: 1;
+        }
+
+        .slide-title {
+            font-size: 1.6em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .slide-description {
+            color: #5a6c7d;
+            font-size: 0.98em;
+            line-height: 1.6;
+        }
+
+        .slide-arrow {
+            flex-shrink: 0;
+            font-size: 2em;
+            color: #FF69B4;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.3));
+        }
+
+        .slide-item:hover .slide-arrow {
+            transform: translateX(-8px) scale(1.2);
+        }
+
+        /* Butterflies */
+        .butterfly {
+            position: absolute;
+            left: -60px;
+            top: 20%;
+            width: 30px;
+            height: 30px;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .slide-item:hover .butterfly {
+            animation: butterflyFly 2s ease-in-out infinite;
+            opacity: 1;
+        }
+
+        @keyframes butterflyFly {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -10px) rotate(5deg); }
+            50% { transform: translate(20px, 0) rotate(0deg); }
+            75% { transform: translate(10px, 10px) rotate(-5deg); }
+        }
+
+        .butterfly::before, .butterfly::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border-radius: 50% 50% 50% 0;
+        }
+
+        .butterfly::before {
+            left: 0;
+            transform: rotate(-45deg);
+        }
+
+        .butterfly::after {
+            right: 0;
+            transform: rotate(45deg) scaleX(-1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 80px;
+            color: #5a6c7d;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4CAF50, transparent);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .title-cloud {
+                padding: 30px 40px;
+            }
+
+            .slide-item {
+                padding: 25px;
+                gap: 20px;
+            }
+
+            .slide-number {
+                width: 65px;
+                height: 65px;
+                font-size: 1.5em;
+            }
+
+            .slide-title {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sun"></div>
+    <div class="clouds">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+    </div>
+    <div class="birds">
+        <div class="bird"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <a href="./index.html" class="back-button">
+                ← بازگشت به صفحه اصلی
+            </a>
+            <div class="title-cloud">
+                <h1>اسلایدهای تکمیلی</h1>
+                <p class="subtitle">مطالب تکمیلی تهیه شده توسط دستیاران آموزشی</p>
+                <p class="subtitle">نیروانا محلو . رضا برزگر</p>
+            </div>
+        </header>
+
+        <div class="slides-list">
+            <div class="slide-item" onclick="openSlide('01')">
+                <div class="butterfly"></div>
+                <div class="slide-number">01</div>
+                <div class="slide-content">
+                    <div class="slide-title">معرفی اجزای اصلی کامپیوتر</div>
+                    <div class="slide-description">آشنایی با اجزای سخت‌افزاری و نرم‌افزاری کامپیوتر</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('02')">
+                <div class="butterfly"></div>
+                <div class="slide-number">02</div>
+                <div class="slide-content">
+                    <div class="slide-title">مقدمه‌ای بر برنامه‌نویسی پایتون</div>
+                    <div class="slide-description">آشنایی با برنامه‌نویسی، زبان‌های معروف و کاربردهای گسترده‌ی پایتون</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('operators')">
+                <div class="butterfly"></div>
+                <div class="slide-number">03</div>
+                <div class="slide-content">
+                    <div class="slide-title">عملگرها</div>
+                    <div class="slide-description">عملگرهای ریاضی، مقایسه‌ای، منطقی و عملیات روی رشته‌ها</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('control-flow')">
+                <div class="butterfly"></div>
+                <div class="slide-number">04</div>
+                <div class="slide-content">
+                    <div class="slide-title">ساختارهای کنترلی</div>
+                    <div class="slide-description">دستورات شرطی (if, elif, else) و حلقه‌ها (for, while)</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('lists-tuples')">
+                <div class="butterfly"></div>
+                <div class="slide-number">05</div>
+                <div class="slide-content">
+                    <div class="slide-title">لیست‌ها و تاپل‌ها</div>
+                    <div class="slide-description">ساختارهای داده ترتیبی و عملیات روی آنها</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('dictionaries-sets')">
+                <div class="butterfly"></div>
+                <div class="slide-number">06</div>
+                <div class="slide-content">
+                    <div class="slide-title">دیکشنری‌ها و مجموعه‌ها</div>
+                    <div class="slide-description">ساختارهای داده کلید-مقدار و مجموعه‌های ریاضی</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('functions')">
+                <div class="butterfly"></div>
+                <div class="slide-number">07</div>
+                <div class="slide-content">
+                    <div class="slide-title">توابع</div>
+                    <div class="slide-description">تعریف توابع، پارامترها، مقادیر بازگشتی و scope</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('strings-advanced')">
+                <div class="butterfly"></div>
+                <div class="slide-number">08</div>
+                <div class="slide-content">
+                    <div class="slide-title">کار پیشرفته با رشته‌ها</div>
+                    <div class="slide-description">متدهای رشته‌ای، فرمت‌بندی و regular expressions</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('file-handling')">
+                <div class="butterfly"></div>
+                <div class="slide-number">09</div>
+                <div class="slide-content">
+                    <div class="slide-title">کار با فایل‌ها</div>
+                    <div class="slide-description">خواندن، نوشتن و مدیریت فایل‌های متنی و باینری</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+
+            <div class="slide-item" onclick="openSlide('oop-basics')">
+                <div class="butterfly"></div>
+                <div class="slide-number">10</div>
+                <div class="slide-content">
+                    <div class="slide-title">مبانی برنامه‌نویسی شی‌گرا</div>
+                    <div class="slide-description">کلاس‌ها، شی‌ها، وراثت و encapsulation</div>
+                </div>
+                <div class="slide-arrow">🌸</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🌱 تهیه شده با عشق توسط تیم دستیاران آموزشی 🌱</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - مبانی برنامه‌نویسی پایتون</p>
+        </footer>
+    </div>
+
+    <script>
+        // Open slide function
+        function openSlide(slideName) {
+            const slideUrls = {
+                '01': '01.html',
+                '02': '02.html',
+                '03': '03.html',
+                '04': '04.html',
+                '05': '05.html',
+                '06': '06.html',
+            };
+
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                window.location.href = slideUrls[slideName];
+                document.body.style.opacity = '1';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
