@@ -306,27 +306,26 @@
             margin-top: 40px;
         }
 
-        /* Flower card design */
+        /* Clean card design */
         .slide-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border: 3px solid transparent;
-            border-radius: 25px;
-            padding: 35px;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            border-radius: 20px;
+            padding: 30px;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             position: relative;
-            overflow: visible;
             display: flex;
             align-items: center;
-            gap: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            gap: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             opacity: 0;
-            transform: translateY(30px);
-            animation: growFlower 0.8s ease forwards;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        @keyframes growFlower {
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -334,103 +333,59 @@
         }
 
         .slide-item:nth-child(1) { animation-delay: 0.1s; }
-        .slide-item:nth-child(2) { animation-delay: 0.2s; }
-        .slide-item:nth-child(3) { animation-delay: 0.3s; }
-        .slide-item:nth-child(4) { animation-delay: 0.4s; }
-        .slide-item:nth-child(5) { animation-delay: 0.5s; }
-        .slide-item:nth-child(6) { animation-delay: 0.6s; }
-        .slide-item:nth-child(7) { animation-delay: 0.7s; }
-        .slide-item:nth-child(8) { animation-delay: 0.8s; }
-        .slide-item:nth-child(9) { animation-delay: 0.9s; }
-        .slide-item:nth-child(10) { animation-delay: 1s; }
+        .slide-item:nth-child(2) { animation-delay: 0.15s; }
+        .slide-item:nth-child(3) { animation-delay: 0.2s; }
+        .slide-item:nth-child(4) { animation-delay: 0.25s; }
+        .slide-item:nth-child(5) { animation-delay: 0.3s; }
+        .slide-item:nth-child(6) { animation-delay: 0.35s; }
+        .slide-item:nth-child(7) { animation-delay: 0.4s; }
+        .slide-item:nth-child(8) { animation-delay: 0.45s; }
+        .slide-item:nth-child(9) { animation-delay: 0.5s; }
+        .slide-item:nth-child(10) { animation-delay: 0.55s; }
 
-        /* Vine decorations */
+        /* Left accent border */
         .slide-item::before {
             content: '';
             position: absolute;
-            left: -5px;
+            left: 0;
             top: 0;
             bottom: 0;
-            width: 8px;
-            background: linear-gradient(180deg, 
-                #228B22 0%, 
-                #32CD32 30%, 
-                #90EE90 60%, 
-                #228B22 100%);
-            border-radius: 4px;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Leaves */
-        .slide-item::after {
-            content: '';
-            position: absolute;
-            left: -20px;
-            top: 30%;
-            width: 25px;
-            height: 15px;
-            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
-            border-radius: 0 50% 50% 0;
-            transform: rotate(-45deg);
-            box-shadow: 
-                0 30px 0 -5px #32CD32,
-                0 60px 0 -8px #228B22;
+            width: 5px;
+            background: linear-gradient(180deg, #3498db 0%, #2ecc71 100%);
+            border-radius: 20px 0 0 20px;
+            transition: width 0.3s ease;
         }
 
         .slide-item:hover {
-            transform: translateX(-15px) scale(1.02);
-            border-color: rgba(255, 192, 203, 0.5);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 240, 245, 1) 100%);
+            transform: translateY(-5px);
+            border-color: rgba(52, 152, 219, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
-        /* Flower number badge */
+        .slide-item:hover::before {
+            width: 8px;
+        }
+
+        /* Simple number badge */
         .slide-number {
             flex-shrink: 0;
-            width: 85px;
-            height: 85px;
-            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: bold;
             color: white;
-            box-shadow: 
-                0 5px 20px rgba(255, 105, 180, 0.4),
-                inset 0 -5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        /* Flower petals */
-        .slide-number::before {
-            content: '';
-            position: absolute;
-            width: 110%;
-            height: 110%;
-            border-radius: 50%;
-            background: 
-                radial-gradient(circle at 50% 0%, #FFB6C1 10%, transparent 10%),
-                radial-gradient(circle at 100% 50%, #FFB6C1 10%, transparent 10%),
-                radial-gradient(circle at 50% 100%, #FFB6C1 10%, transparent 10%),
-                radial-gradient(circle at 0% 50%, #FFB6C1 10%, transparent 10%),
-                radial-gradient(circle at 85% 85%, #FFC0CB 10%, transparent 10%),
-                radial-gradient(circle at 15% 85%, #FFC0CB 10%, transparent 10%),
-                radial-gradient(circle at 85% 15%, #FFC0CB 10%, transparent 10%),
-                radial-gradient(circle at 15% 15%, #FFC0CB 10%, transparent 10%);
-            z-index: -1;
-            animation: petalRotate 20s linear infinite;
-        }
-
-        @keyframes petalRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
         }
 
         .slide-item:hover .slide-number {
-            transform: rotate(15deg) scale(1.15);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            transform: scale(1.05);
         }
 
         .slide-content {
@@ -452,56 +407,13 @@
 
         .slide-arrow {
             flex-shrink: 0;
-            font-size: 2em;
-            color: #FF69B4;
+            font-size: 1.5em;
+            color: #3498db;
             transition: transform 0.3s ease;
-            filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.3));
         }
 
         .slide-item:hover .slide-arrow {
-            transform: translateX(-8px) scale(1.2);
-        }
-
-        /* Butterflies */
-        .butterfly {
-            position: absolute;
-            left: -60px;
-            top: 20%;
-            width: 30px;
-            height: 30px;
-            opacity: 0;
-            transition: all 0.5s ease;
-        }
-
-        .slide-item:hover .butterfly {
-            animation: butterflyFly 2s ease-in-out infinite;
-            opacity: 1;
-        }
-
-        @keyframes butterflyFly {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(10px, -10px) rotate(5deg); }
-            50% { transform: translate(20px, 0) rotate(0deg); }
-            75% { transform: translate(10px, 10px) rotate(-5deg); }
-        }
-
-        .butterfly::before, .butterfly::after {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 20px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            border-radius: 50% 50% 50% 0;
-        }
-
-        .butterfly::before {
-            left: 0;
-            transform: rotate(-45deg);
-        }
-
-        .butterfly::after {
-            right: 0;
-            transform: rotate(45deg) scaleX(-1);
+            transform: translateX(-5px);
         }
 
         footer {
@@ -520,7 +432,7 @@
             transform: translateX(-50%);
             width: 200px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, #4CAF50, transparent);
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
         }
 
         @media (max-width: 768px) {
@@ -533,18 +445,22 @@
             }
 
             .slide-item {
-                padding: 25px;
-                gap: 20px;
+                padding: 20px;
+                gap: 15px;
             }
 
             .slide-number {
-                width: 65px;
-                height: 65px;
+                width: 60px;
+                height: 60px;
                 font-size: 1.5em;
             }
 
             .slide-title {
                 font-size: 1.3em;
+            }
+
+            .slide-arrow {
+                font-size: 1.2em;
             }
         }
     </style>
@@ -562,7 +478,7 @@
 
     <div class="container">
         <header>
-            <a href="./index.html" class="back-button">
+            <a href="../../index.html" class="back-button">
                 ← بازگشت به صفحه اصلی
             </a>
             <div class="title-cloud">
@@ -574,109 +490,99 @@
 
         <div class="slides-list">
             <div class="slide-item" onclick="openSlide('01')">
-                <div class="butterfly"></div>
                 <div class="slide-number">01</div>
                 <div class="slide-content">
                     <div class="slide-title">معرفی اجزای اصلی کامپیوتر</div>
                     <div class="slide-description">آشنایی با اجزای سخت‌افزاری و نرم‌افزاری کامپیوتر</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('02')">
-                <div class="butterfly"></div>
                 <div class="slide-number">02</div>
                 <div class="slide-content">
                     <div class="slide-title">مقدمه‌ای بر برنامه‌نویسی پایتون</div>
                     <div class="slide-description">آشنایی با برنامه‌نویسی، زبان‌های معروف و کاربردهای گسترده‌ی پایتون</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('operators')">
-                <div class="butterfly"></div>
                 <div class="slide-number">03</div>
                 <div class="slide-content">
-                    <div class="slide-title">عملگرها</div>
-                    <div class="slide-description">عملگرهای ریاضی، مقایسه‌ای، منطقی و عملیات روی رشته‌ها</div>
+                    <div class="slide-title">موضوع سوم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('control-flow')">
-                <div class="butterfly"></div>
                 <div class="slide-number">04</div>
                 <div class="slide-content">
-                    <div class="slide-title">ساختارهای کنترلی</div>
-                    <div class="slide-description">دستورات شرطی (if, elif, else) و حلقه‌ها (for, while)</div>
+                    <div class="slide-title">موضوع چهارم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('lists-tuples')">
-                <div class="butterfly"></div>
                 <div class="slide-number">05</div>
                 <div class="slide-content">
-                    <div class="slide-title">لیست‌ها و تاپل‌ها</div>
-                    <div class="slide-description">ساختارهای داده ترتیبی و عملیات روی آنها</div>
+                    <div class="slide-title">موضوع پنجم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('dictionaries-sets')">
-                <div class="butterfly"></div>
                 <div class="slide-number">06</div>
                 <div class="slide-content">
-                    <div class="slide-title">دیکشنری‌ها و مجموعه‌ها</div>
-                    <div class="slide-description">ساختارهای داده کلید-مقدار و مجموعه‌های ریاضی</div>
+                    <div class="slide-title">موضوع ششم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('functions')">
-                <div class="butterfly"></div>
                 <div class="slide-number">07</div>
                 <div class="slide-content">
-                    <div class="slide-title">توابع</div>
-                    <div class="slide-description">تعریف توابع، پارامترها، مقادیر بازگشتی و scope</div>
+                    <div class="slide-title">موضوع هفتم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('strings-advanced')">
-                <div class="butterfly"></div>
                 <div class="slide-number">08</div>
                 <div class="slide-content">
-                    <div class="slide-title">کار پیشرفته با رشته‌ها</div>
-                    <div class="slide-description">متدهای رشته‌ای، فرمت‌بندی و regular expressions</div>
+                    <div class="slide-title">موضوع هشتم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('file-handling')">
-                <div class="butterfly"></div>
                 <div class="slide-number">09</div>
                 <div class="slide-content">
-                    <div class="slide-title">کار با فایل‌ها</div>
-                    <div class="slide-description">خواندن، نوشتن و مدیریت فایل‌های متنی و باینری</div>
+                    <div class="slide-title">موضوع نهم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
 
             <div class="slide-item" onclick="openSlide('oop-basics')">
-                <div class="butterfly"></div>
                 <div class="slide-number">10</div>
                 <div class="slide-content">
-                    <div class="slide-title">مبانی برنامه‌نویسی شی‌گرا</div>
-                    <div class="slide-description">کلاس‌ها، شی‌ها، وراثت و encapsulation</div>
+                    <div class="slide-title">موضوع دهم</div>
+                    <div class="slide-description">توضیحات</div>
                 </div>
-                <div class="slide-arrow">🌸</div>
+                <div class="slide-arrow">←</div>
             </div>
         </div>
 
         <footer>
-            <p>🌱 تهیه شده با عشق توسط تیم دستیاران آموزشی 🌱</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - مبانی برنامه‌نویسی پایتون</p>
+            <p>تهیه شده با 💙 توسط گروه دستیاران آموزشی</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - دانشکده‌ی مهندسی کامپیوتر دانشگاه صنعتی شریف</p>
         </footer>
     </div>
 
