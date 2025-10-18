@@ -3,9 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مقدمه‌ای جامع بر برنامه‌نویسی و پایتون</title>
+    <title>مقدمه ای بر برنامه نویسی و زبان پایتون</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #1E1A3B 0%, #2D2654 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            animation: fadeInDown 1s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #B794F6, #E0BBE4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #E0BBE4;
+            font-weight: 300;
+        }
+
+        /* Slide Styling */
+        .slide {
+            background: #F9F9FB;
+            border-radius: 24px;
+            padding: 50px;
+            margin: 30px auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.8s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(183, 148, 246, 0.4);
+        }
+
+        .slide-header {
+            border-right: 6px solid #B794F6;
+            padding-right: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slide-header h2 {
+            font-size: 2.2em;
+            color: #1E1A3B;
+            margin-bottom: 10px;
+        }
+
+        .slide-header p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.9;
+        }
+        
+        /* Content Blocks */
+        .analogy-box {
+            background: linear-gradient(135deg, #E0BBE4 0%, #B794F6 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analogy-box h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .analogy-box p {
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .output-block {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border-right: 4px solid #50FA7B;
+        }
+
+        .output-block h4 {
+            color: #50FA7B;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-align: right;
+        }
+
+        .output-block pre {
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .code-block {
+            background: #2D2654;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block pre {
+            color: #E0BBE4;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .keyword { color: #FF79C6; }
+        .string { color: #F1FA8C; }
+        .comment { color: #6272A4; font-style: italic; }
+        .function { color: #50FA7B; }
+        .number { color: #BD93F9; }
+
+        .quiz-box {
+            background: #EDEDED;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #B794F6;
+        }
+
+        .quiz-box h3 {
+            color: #1E1A3B;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .takeaways {
+            background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .takeaways h3 {
+            color: #1E1A3B;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .takeaways ul { list-style: none; padding: 0; }
+        .takeaways li { padding: 12px 0; padding-right: 35px; position: relative; color: #444; font-size: 1.05em; line-height: 1.8; }
+        .takeaways li::before { content: "✓"; position: absolute; right: 0; color: #B794F6; font-weight: bold; font-size: 1.4em; }
+
+        .highlight-box {
+            background: #FFF4E6;
+            border-right: 4px solid #FF9F43;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .highlight-box p { color: #333; margin: 0; line-height: 1.8; }
+        
+        /* Navigation Buttons */
+        .top-nav {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            pointer-events: none;
+        }
+
+        .top-nav-btn {
+            background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Vazirmatn', sans-serif;
+            box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3);
+            pointer-events: auto;
+        }
+
+        .top-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5);
+        }
+        .top-nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .bottom-nav-btn {
+            background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%);
+            color: white;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bottom-nav-btn svg { width: 28px; height: 28px; fill: white; }
+        .bottom-nav-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5); }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #E0BBE4;
+            font-size: 0.95em;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .slide { padding: 30px 20px; }
+            .slide-header h2 { font-size: 1.6em; }
+            .top-nav { padding: 0 15px; }
+            .top-nav-btn { padding: 10px 20px; font-size: 0.9em; }
+            .bottom-nav { bottom: 20px; left: 20px; gap: 10px;}
+            .bottom-nav-btn { width: 50px; height: 50px; }
+            .bottom-nav-btn svg { width: 24px; height: 24px; }
+        }
+    </style>
 </head>
 <body>
     <!-- Top Navigation Buttons -->
@@ -14,12 +291,22 @@
         <button class="top-nav-btn" id="nextBtn" onclick="goToNext()">بعدی ←</button>
     </div>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+    <!-- Bottom Navigation Buttons -->
+    <div class="bottom-nav">
+        <button class="bottom-nav-btn" id="scrollToTopBtn" onclick="scrollToTop()" title="برو به بالا">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/></svg>
+        </button>
+        <button class="bottom-nav-btn" id="prevPageBtn" onclick="goToPreviousPage()" title="صفحه قبل">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </button>
+        <button class="bottom-nav-btn" id="homeBtn" onclick="goToHome()" title="صفحه اصلی">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+        </button>
+    </div>
 
     <div class="container">
         <header>
-            <h1>سفر به دنیای برنامه‌نویسی با پایتون</h1>
+            <h1>مقدمه ای بر برنامه نویسی و زبان پایتون</h1>
             <p>آشنایی با مفاهیم پایه برنامه‌نویسی، مرور زبان‌های پرکاربرد، و نگاهی به کاربردهای گسترده پایتون</p>
         </header>
 
@@ -114,10 +401,10 @@ Hello, John!</pre>
                 <h2>تاریخچه زبان‌ها: سطح بالا در برابر سطح پایین 🧗</h2>
                 <p>زبان‌های برنامه‌نویسی در طول زمان تکامل یافته‌اند تا ارتباط ما با سخت‌افزار کامپیوتر را ساده‌تر کنند.</p>
             </div>
-            <div class="highlight-box" style="border-right-color: var(--error-red);">
+            <div class="highlight-box">
                 <p><strong>زبان‌های سطح پایین (Low-Level):</strong> مانند <strong>Assembly</strong> و <strong>زبان ماشین</strong>. این زبان‌ها به زبان سخت‌افزار (صفر و یک) بسیار نزدیک هستند. نوشتن کد با آنها دشوار است اما کنترل کامل و سرعت بسیار بالایی را ارائه می‌دهند.</p>
             </div>
-            <div class="highlight-box" style="border-right-color: var(--success-green);">
+            <div class="highlight-box">
                 <p><strong>زبان‌های سطح بالا (High-Level):</strong> مانند <strong>Python, Java, JavaScript</strong>. این زبان‌ها به زبان انسان نزدیک‌تر هستند، خوانایی بالاتری دارند و یادگیری‌شان آسان‌تر است. آنها جزئیات پیچیده سخت‌افزاری را از دید برنامه‌نویس پنهان می‌کنند.</p>
             </div>
         </section>
@@ -208,7 +495,7 @@ Hello, John!</pre>
             </div>
             
             <h3>روبی (Ruby)</h3>
-            <p>< در اواسط دهه ۱۹۹۰ توسط یوکیهیرو ماتسوموتو در ژاپن ساخته شد. فلسفه اصلی روبی، شادی و بهره‌وری برنامه‌نویس است. سینتکس آن بسیار زیبا و نزدیک به زبان انگلیسی است و با فریمورک Ruby on Rails در توسعه وب بسیار محبوب شد.</p>
+            <p>در اواسط دهه ۱۹۹۰ توسط یوکیهیرو ماتسوموتو در ژاپن ساخته شد. فلسفه اصلی روبی، شادی و بهره‌وری برنامه‌نویس است. سینتکس آن بسیار زیبا و نزدیک به زبان انگلیسی است و با فریمورک Ruby on Rails در توسعه وب بسیار محبوب شد.</p>
             <div class="code-block">
                 <pre><code><span class="comment"># "Hello, World!" in Ruby</span>
 <span class="function">puts</span> <span class="string">"Hello, World!"</span></code></pre>
@@ -430,39 +717,11 @@ Hello, John!</pre>
 
     <script>
         // Navigation functions
-        function goToPrevious() {
-            window.location.href = '01.html'; // Go to previous slide
-        }
-
-        function goToNext() {
-            window.location.href = 'index.html'; // Go back to slides list (or next slide if exists)
-        }
-
-        // Scroll to top function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Show/hide scroll to top button based on scroll position
-        window.addEventListener('scroll', function() {
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
-            }
-        });
-
-        // Disable next button if this is the last slide
-        // You can modify this logic based on your needs
-        const currentSlide = '02'; // Change this for each slide
-        if (currentSlide === '02') {
-            // If there's no next slide, you can disable or redirect to index
-            // document.getElementById('nextBtn').disabled = true;
-        }
+        function goToPrevious() { window.location.href = '01.html'; }
+        function goToNext() { window.location.href = '03.html'; }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function goToPreviousPage() { window.location.href = 'index.html'; }
+        function goToHome() { window.location.href = '../../index.html'; }
     </script>
 </body>
 </html>
