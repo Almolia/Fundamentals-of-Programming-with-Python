@@ -190,6 +190,13 @@
             animation: bounce 2s infinite;
         }
 
+        .nav-card .icon-img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(74, 144, 255, 0.5));
+        }
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -293,32 +300,34 @@
             <div class="nav-card" onclick="navigate('slides')">
                 <div class="icon">📊</div>
                 <h3>درسنامه‌های تکمیلی</h3>
+                <p>جهت مطالعه و مرور</p>
             </div>
 
             <div class="nav-card" onclick="navigate('syllabus')">
                 <div class="icon">📚</div>
-                <h3>سرفصل‌ها و شیوه‌ی ارزیابی</h3>
+                <h3>سرفصل‌ها و ارزیابی</h3>
+                <p>سیلابس درس و بارم‌بندی</p>
             </div>
 
-            <div class="nav-card" onclick="navigate('assignments')">
-                <div class="icon">✍️</div>
-                <h3>تمرین‌ها</h3>
+            <div class="nav-card" onclick="navigate('quera')">
+                <div class="icon">
+                    <img src="./assets/quera-logo.png" alt="تمرین‌ها" class="icon-img">
+                </div>
+                <h3>صفحه‌ی کوئرا</h3>
+                <p>تمرین‌ها و اطلاع‌رسانی‌ها</p>
             </div>
 
             <div class="nav-card" onclick="navigate('quizzes')">
                 <div class="icon">🎯</div>
                 <h3>آزمون‌ها و کوییزها</h3>
+                <p>زمان‌بندی‌ها و مباحث</p>
             </div>
 
             <div class="nav-card" onclick="navigate('resources')">
-                <div class="icon">💡</div>
-                <h3>منابع</h3>
-            </div>
-
-            <div class="nav-card" onclick="navigate('examples')">
                 <div class="icon">💻</div>
-                <h3>نمونه کدها</h3>
+                <h3>منابع مفید</h3>
                 <p>مثال‌های کاربردی و پروژه‌ها</p>
+
             </div>
         </div>
 
@@ -360,7 +369,7 @@
             const urls = {
                 'slides': './content/slides/index.html',
                 'syllabus': './content/syllabus/index.html',
-                'assignments': './content/assignments/index.html',
+                'quera': 'https://quera.org/course/add_to_course/course/23733/',
                 'quizzes': './content/quizzes/index.html',
                 'resources': './content/resources/index.html',
                 'examples': './content/examples/index.html'
