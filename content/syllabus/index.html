@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سرفصل‌ها و شیوه‌ی ارزیابی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-right: 5px solid #00b4db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 180, 219, 0.2);
+        }
+
+        .section-title {
+            color: #0083b0;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .session-badge {
+            background: #00b4db;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .section-content {
+            color: #333;
+            padding-right: 1rem;
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding-right: 1rem;
+        }
+
+        .section-content li {
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .section-content li:before {
+            content: "▹";
+            color: #00b4db;
+            font-weight: bold;
+            position: absolute;
+            right: -1rem;
+        }
+
+        .resources {
+            background: #e1f5fe;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-right: 5px solid #0288d1;
+            margin-bottom: 2.5rem;
+        }
+
+        .resources h3 {
+            color: #0288d1;
+            margin-bottom: 1rem;
+        }
+
+        .resources ol {
+            padding-right: 1.5rem;
+            color: #333;
+        }
+
+        .resources li {
+            margin: 0.5rem 0;
+        }
+
+        .evaluation {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .evaluation h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .eval-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .eval-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .eval-score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .eval-description {
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .total-score {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .note {
+            background: #fff3cd;
+            border-right: 5px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            color: #856404;
+        }
+
+        .note strong {
+            color: #d39e00;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header h2 {
+                font-size: 1.2rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+            
+            .eval-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../../index.html" class="back-button">
+                ← بازگشت
+            </a>
+            <h1>سرفصل‌ها و شیوه‌ی ارزیابی</h1>
+            <h2>Syllabus and Assessment Methods</h2>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">
+                    ۱. مفاهیم اولیه و مقدمه
+                    <span class="session-badge">۲ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>تعاریف اولیه: الگوریتم، برنامه، حل مسئله</li>
+                        <li>فلوچارت</li>
+                        <li>معرفی اجزای اصلی کامپیوتر</li>
+                        <li>تاریخچهی رشد زبانهای برنامه‌سازی</li>
+                        <li>آشنایی با زبان پایتون</li>
+                        <li>مراحل ساخت و اجرای یک برنامه</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۲. مقدمات برنامه‌سازی
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>مقادیر، متغیرها و انواع داده‌ها</li>
+                        <li>عملگرها و تقدم عملیات</li>
+                        <li>تبدیل داده‌ها</li>
+                        <li>دستورات ورودی و خروجی</li>
+                        <li>آشنایی با کدنویسی خوانا (توضیح‌گذاری، جدانویسی)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۳. ساختار انتخاب
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>عبارات بولی</li>
+                        <li>عملگرهای مقایسه‌ای و منطقی</li>
+                        <li>دستور if-else</li>
+                        <li>انتخاب‌های چندگانه و تودرتو</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۴. ساختارهای تکرار
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>حلقه‌های شرطی و شمارشی</li>
+                        <li>تکرار با حلقهی for</li>
+                        <li>حلقهی while</li>
+                        <li>دستورات break و continue</li>
+                        <li>انواع حلقه‌های شرطی</li>
+                        <li>حلقه‌های تودرتو</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۵. توابع
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>جریان اجرا</li>
+                        <li>پارامترها و آرگومان‌ها</li>
+                        <li>حوزهی تعریف متغیرها</li>
+                        <li>توابع خروجی‌دار</li>
+                        <li>مقادیر پیش‌فرض پارامترها</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۶. لیست‌ها
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>آدرس‌دهی و برش لیست‌ها</li>
+                        <li>تغییر لیست‌ها</li>
+                        <li>توابع و متدهای لیستی</li>
+                        <li>چندتایی‌ها</li>
+                        <li>لیست‌های تودرتو</li>
+                        <li>List Comprehension</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۷. فرهنگ‌های داده‌ای و مجموعه‌ها
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>کاربرد فرهنگ‌های داده‌ای</li>
+                        <li>نمایش ماتریس‌های تنک</li>
+                        <li>برنامه‌ریزی پویا</li>
+                        <li>مجموعه‌ها و عملگرهای مجموعه‌ای</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۸. الگوریتم‌های بازگشتی
+                    <span class="session-badge">۲ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>توابع بازگشتی</li>
+                        <li>جریان اجرای توابع بازگشتی</li>
+                        <li>حل مسئله به روش بازگشتی</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۹. الگوریتم‌های جست‌وجو و مرتب‌سازی
+                    <span class="session-badge">۲ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>جست‌وجوی خطی و دودویی</li>
+                        <li>الگوریتم‌های مرتب‌سازی (انتخابی، حبابی)</li>
+                        <li>روش تقسیم و حل: مرتب‌سازی ادغامی</li>
+                        <li>آشنایی با پیچیدگی الگوریتم‌ها</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۱۰. توابع تصادفی و شبیه‌سازی و نمایش نمودار
+                    <span class="session-badge">۱ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>تولید اعداد تصادفی</li>
+                        <li>توزیع رخدادها</li>
+                        <li>نمونه‌گیری تصادفی</li>
+                        <li>آشنایی با کتابخانهی matplotlib</li>
+                        <li>رسم نمودار</li>
+                        <li>رسم هیستوگرام</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۱۱. محاسبات عددی و ساختارهای داده‌ای
+                    <span class="session-badge">۲ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>آشنایی با کتابخانه‌های NumPy و SciPy</li>
+                        <li>آرایه‌ها و عملگرهای آرایه‌ای</li>
+                        <li>چندجمله‌ای‌ها</li>
+                        <li>ماتریس‌ها و توابع جبر خطی</li>
+                        <li>حل معادلات خطی</li>
+                        <li>آشنایی با کتابخانهی Pandas</li>
+                        <li>ساخت Dataframe و وارد کردن داده</li>
+                        <li>آشنایی با توابع موجود در کتابخانه</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    ۱۲. برنامه‌سازی شیءگرا
+                    <span class="session-badge">۲ جلسه</span>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>آشنایی با کلاس‌ها و اشیاء</li>
+                        <li>نحوهی تعریف یک کلاس</li>
+                        <li>متدها و ویژگی‌ها</li>
+                        <li>سازنده‌ها</li>
+                        <li>وراثت</li>
+                        <li>چندریختی</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resources">
+                <h3>📚 منابع درسی</h3>
+                <ol>
+                    <li>P. Wentworth, J. Elkner, A. B. Downey, C. Meyers. How to Think Like a Computer Scientist: Learning with Python. 3rd Edition, Open Book Project, 2011.</li>
+                    <li>J. Campbell, P. Gries, J. Montojo, G. Wilson. Practical Programming: An Introduction to Computer Science Using Python. The Pragmatic Bookshelf, 2009.</li>
+                    <li>J. M. Zelle. Python Programming: An Introduction to Computer Science. Franklin, Beedle & Associates, 2004.</li>
+                </ol>
+            </div>
+
+            <div class="evaluation">
+                <h3>📊 سیاست ارزیابی درس</h3>
+                <div class="eval-grid">
+                    <div class="eval-item">
+                        <div class="eval-score">۶</div>
+                        <div class="eval-description">تمرین‌های برنامه‌سازی<br>(۶ تمرین ۱ نمره‌ای)</div>
+                    </div>
+                    <div class="eval-item">
+                        <div class="eval-score">۲.۵</div>
+                        <div class="eval-description">آزمونک‌ها<br>(۵ آزمونک نیم نمره‌ای)</div>
+                    </div>
+                    <div class="eval-item">
+                        <div class="eval-score">۰.۵</div>
+                        <div class="eval-description">کلاس حل تمرین<br>(آزمونک انتهای کلاس)</div>
+                    </div>
+                    <div class="eval-item">
+                        <div class="eval-score">۱۲</div>
+                        <div class="eval-description">آزمون‌ها<br>(میان‌ترم و پایان‌ترم، حذفی)</div>
+                    </div>
+                </div>
+                <div class="total-score">
+                    مجموع نمره نهایی: ۲۱ نمره
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>⚠️ نکات مهم:</strong>
+                <ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+                    <li>آزمونک‌ها در انتهای کلاس به صورت یک سوال از مطالب گفته‌شده در همان جلسه است.</li>
+                    <li>برای ارزیابی نهایی، ۵ آزمونکی که بیشترین نمره را در آن‌ها کسب کرده‌اید در نظر گرفته می‌شود.</li>
+                    <li>حضور در کلاس اجباری نمی‌باشد.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
