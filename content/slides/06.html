@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>توابع در پایتون</title>
+    <style>
+        /* تمام کدهای CSS شما بدون تغییر در اینجا قرار دارند تا ظاهر حفظ شود */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Vazirmatn', sans-serif; background: linear-gradient(135deg, #1E1A3B 0%, #2D2654 100%); color: #333; overflow-x: hidden; min-height: 100vh; direction: rtl; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 20px; color: white; animation: fadeInDown 1s ease; }
+        header h1 { font-size: 3em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(90deg, #B794F6, #E0BBE4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        header p { font-size: 1.2em; color: #E0BBE4; font-weight: 300; }
+        .slide { background: #F9F9FB; border-radius: 24px; padding: 50px; margin: 30px auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); animation: slideUp 0.8s ease; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .slide:hover { transform: translateY(-5px); box-shadow: 0 25px 70px rgba(183, 148, 246, 0.4); }
+        .slide-header { border-right: 6px solid #B794F6; padding-right: 20px; margin-bottom: 30px; }
+        .slide-header h2 { font-size: 2.2em; color: #1E1A3B; margin-bottom: 10px; }
+        .slide-header p { font-size: 1.1em; color: #666; line-height: 1.9; }
+        .analogy-box { background: linear-gradient(135deg, #E0BBE4 0%, #B794F6 100%); border-radius: 16px; padding: 25px; margin: 25px 0; color: white; position: relative; overflow: hidden; }
+        .analogy-box::before { content: "💡"; font-size: 3em; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); opacity: 0.3; }
+        .analogy-box h3 { font-size: 1.4em; margin-bottom: 10px; }
+        .analogy-box p { font-size: 1.05em; line-height: 1.8; }
+        .output-block { background: #1a1a1a; border-radius: 12px; padding: 25px; margin: 25px 0; border-right: 4px solid #50FA7B; }
+        .output-block h4 { color: #50FA7B; margin-bottom: 15px; font-size: 1.1em; text-align: right; }
+        .output-block pre { color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.95em; line-height: 1.8; white-space: pre-wrap; text-align: left; direction: ltr; }
+        .error-output { background: #2a1a1a; border-right: 4px solid #FF5555; }
+        .error-output h4 { color: #FF5555; }
+        .quiz-box { background: #EDEDED; border-radius: 16px; padding: 30px; margin: 25px 0; border: 2px solid #B794F6; }
+        .quiz-box h3 { color: #1E1A3B; margin-bottom: 15px; font-size: 1.3em; }
+        .quiz-box p { color: #444; font-size: 1.05em; line-height: 1.8; }
+        .highlight-box { background: #FFF4E6; border-right: 4px solid #FF9F43; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .highlight-box p { color: #333; margin: 0; line-height: 1.8; }
+        .takeaways { background: #E8F5E9; border-radius: 12px; padding: 25px; margin: 25px 0; border-right: 4px solid #4CAF50; }
+        .takeaways h4 { color: #2E7D32; margin-bottom: 15px; font-size: 1.2em; }
+        .takeaways ul { list-style: none; padding: 0; }
+        .takeaways li { color: #333; margin: 10px 0; padding-right: 25px; position: relative; line-height: 1.8; }
+        .takeaways li::before { content: "✓"; color: #4CAF50; font-weight: bold; position: absolute; right: 0; }
+        .code-block { background: #282a36; border-radius: 12px; padding: 25px; margin: 25px 0; border-right: 4px solid #BD93F9; overflow-x: auto; }
+        .code-block pre { color: #f8f8f2; font-family: 'Courier New', monospace; font-size: 0.95em; line-height: 1.8; margin: 0; direction: ltr; text-align: left; }
+        .code-block .keyword { color: #FF79C6; font-weight: bold; }
+        .code-block .string { color: #F1FA8C; }
+        .code-block .comment { color: #6272A4; font-style: italic; }
+        .code-block .function { color: #50FA7B; }
+        .code-block .number { color: #BD93F9; }
+        .quiz-box { background: #EDEDED; border-radius: 16px; padding: 30px; margin: 25px 0; border: 2px solid #B794F6; }
+        .quiz-box h3 { color: #1E1A3B; margin-bottom: 15px; font-size: 1.3em; }
+        .quiz-box p { color: #444; font-size: 1.05em; line-height: 1.8; }
+        .highlight-box { background: #FFF4E6; border-right: 4px solid #FF9F43; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .highlight-box p { color: #333; margin: 0; line-height: 1.8; }
+        footer { text-align: center; padding: 40px 20px; color: #E0BBE4; font-size: 0.95em; }
+        .top-nav { position: fixed; top: 20px; left: 0; right: 0; z-index: 1000; display: flex; justify-content: space-between; padding: 0 30px; pointer-events: none; }
+        .top-nav-btn { background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%); color: white; border: none; padding: 12px 28px; border-radius: 25px; cursor: pointer; font-size: 1em; font-weight: 600; transition: all 0.3s ease; font-family: 'Vazirmatn', sans-serif; box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3); pointer-events: auto; }
+        .top-nav-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5); }
+        .top-nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .bottom-nav { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .bottom-nav-btn { background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%); color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3); display: flex; align-items: center; justify-content: center; }
+        .bottom-nav-btn svg { width: 28px; height: 28px; fill: white; }
+        .bottom-nav-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5); }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) { header h1 { font-size: 2em; } .slide { padding: 30px 20px; } .slide-header h2 { font-size: 1.6em; } .top-nav { padding: 0 15px; } .top-nav-btn { padding: 10px 20px; font-size: 0.9em; } .bottom-nav { bottom: 20px; left: 20px; gap: 10px;} .bottom-nav-btn { width: 50px; height: 50px; } .bottom-nav-btn svg { width: 24px; height: 24px; } }
+    </style>
+</head>
+<body>
+    <!-- دکمه‌های ناوبری بالا و پایین بدون تغییر باقی می‌مانند -->
+    <div class="top-nav">
+        <button class="top-nav-btn" id="prevBtn" onclick="goToPrevious()">→ قبلی</button>
+        <button class="top-nav-btn" id="nextBtn" onclick="goToNext()">بعدی ←</button>
+    </div>
+    <div class="bottom-nav">
+        <button class="bottom-nav-btn" id="scrollToTopBtn" onclick="scrollToTop()" title="برو به بالا"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/></svg></button>
+        <button class="bottom-nav-btn" id="prevPageBtn" onclick="goToPreviousPage()" title="صفحه قبل"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
+        <button class="bottom-nav-btn" id="homeBtn" onclick="goToHome()" title="صفحه اصلی"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg></button>
+    </div>
+
+    <div class="container">
+        <!-- هدر اصلی صفحه - می‌توانید آن را نیز تغییر دهید -->
+        <header>
+            <h1>توابع در پایتون</h1>
+            <p>مفاهیم اساسی توابع، از تعریف تا مقادیر بازگشتی</p>
+        </header>
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۱. تابع چیست؟</h2>
+                <p>تابع در پایتون سازوکاری است برای سازمان‌دهی منطق برنامه در قالب بخش‌های کوچک، نام‌دار و قابل‌استفادهٔ مجدد. هر تابع مجموعه‌ای از دستورات را در خود جای می‌دهد که وظیفه‌ای مشخص را انجام می‌دهند و تنها در صورت فراخوانی اجرا می‌شوند.</p>
+                <p>توابع می‌توانند هنگام فراخوانی، داده‌هایی را از بیرون دریافت کنند که به آن‌ها پارامتر یا آرگومان گفته می‌شود. این پارامترها امکان می‌دهند تا یک تابع بر اساس ورودی‌های مختلف، رفتار یا نتیجهٔ متفاوتی تولید کند. افزون بر این، یک تابع می‌تواند پس از انجام پردازش، مقداری را به عنوان نتیجهٔ اجرای خود بازگرداند تا در بخش‌های دیگر برنامه مورد استفاده قرار گیرد.</p>
+                <p>به طور کلی، توابع در پایتون ابزارهایی هستند برای تفکیک وظایف، افزایش خوانایی و جلوگیری از تکرار کد. با استفاده از آن‌ها می‌توان بخش‌های منطقی و تکرارشوندهٔ برنامه را به صورت بلوک‌های مستقل و قابل‌فراخوانی طراحی کرد تا نگهداری و توسعهٔ برنامه ساده‌تر و ساخت‌یافته‌تر شود.</p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: دستگاه قهوه ساز</h3>
+                <p>یک تابع مانند یک دستگاه قهوه ساز است. شما به آن ورودی (آب، پودر قهوه) می دهید، و به شما خروجی (قهوه) می دهد. شما می توانید هر چند بار که بخواهید از آن استفاده کنید.</p>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد</h4>
+                <pre><span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="function">print</span>(f<span class="string">"Hello, {name}!"</span>)
+
+<span class="function">greet</span>(<span class="string">"Alice"</span>)
+<span class="function">greet</span>(<span class="string">"Bob"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Hello, Alice!
+Hello, Bob!</pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>توابع به شما کمک می کنند تا کد خود را سازماندهی کنید، از تکرار جلوگیری کنید و کد خود را خواناتر کنید.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>یک تابع بنویسید که دو عدد را به عنوان ورودی می گیرد و مجموع آنها را چاپ می کند.</p>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۲. سینتکس و اجزای تابع در پایتون</h2>
+                <p>تابع در پایتون با کلیدواژه <code>def</code> تعریف می‌شود. واژه‌ی <code>def</code> کوتاه‌شده‌ی <strong>define</strong> به معنای «تعریف کردن» است. با استفاده از آن، برنامه‌نویس یک تابع جدید تعریف می‌کند که دارای نام، پارامترهای ورودی (اختیاری) و بدنه‌ای از دستورات است. پس از تعریف، می‌توان تابع را در هر بخش از برنامه با نوشتن نام آن و قرار دادن پرانتز فراخوانی کرد.</p>
+                <p><strong>اجزای اصلی تعریف تابع:</strong></p>
+                <ul style="line-height: 1.9; color:#333; margin-right: 20px;">
+                    <li><code>def</code>: آغاز تعریف تابع</li>
+                    <li><code>function_name</code>: نام تابع</li>
+                    <li><code>(parameters)</code>: پارامترهای ورودی (اختیاری)</li>
+                    <li><code>:</code>: نشان‌دهنده‌ی آغاز بدنه تابع</li>
+                    <li>بدنه تابع: مجموعه‌ای از دستورات تورفتگی‌دار که هنگام فراخوانی اجرا می‌شوند</li>
+                    <li><code>return</code>: بازگرداندن مقدار (اختیاری)</li>
+                </ul>
+            </div>
+
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: دستورالعمل آشپزی</h3>
+                <p>تابع مانند یک دستورالعمل آشپزی است. شما یک بار مراحل را با استفاده از <code>def</code> تعریف می‌کنید و هر زمان بخواهید، فقط نام آن را صدا می‌زنید تا اجرا شود.</p>
+            </div>
+
+            <div class="code-block">
+                <h4>مثال کد</h4>
+                <pre><span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="comment">"""بدنه‌ی اصلی تابع"""</span>
+    <span class="function">print</span>(f<span class="string">"سلام، {name}!"</span>)
+
+<span class="comment"># فراخوانی تابع</span>
+<span class="function">greet</span>(<span class="string">"علی"</span>)</pre>
+            </div>
+
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>سلام، علی!</pre>
+            </div>
+
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>واژه‌ی <code>def</code> همواره ابتدای تعریف تابع می‌آید.</li>
+                    <li>هر تابع باید با تورفتگی (indentation) مشخص شود.</li>
+                    <li>نام تابع باید گویا باشد و از قوانین نام‌گذاری متغیرها پیروی کند.</li>
+                    <li>برای مستندسازی تابع می‌توان از رشته‌ی مستندات (docstring) استفاده کرد.</li>
+                </ul>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>تابع زیر چه نام دارد و چند پارامتر می‌گیرد؟</p>
+                <div class="code-block">
+                    <pre><span class="keyword">def</span> <span class="function">add</span>(a, b):
+    <span class="keyword">return</span> a + b</pre>
+                </div>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۳. جریان اجرای توابع</h2>
+                <p>
+                    جریان اجرای برنامه یعنی ترتیب انجام دستورات از بالا به پایین. وقتی به یک تابع می‌رسیم، اجرای برنامه وارد تابع می‌شود و پس از پایان آن، به ادامه کد بازمی‌گردد. درون تابع نیز دستورات به ترتیب اجرا می‌شوند و اگر شرط یا حلقه‌ای وجود داشته باشد، بر اساس آن‌ها تصمیم‌گیری و تکرار انجام می‌شود.
+                </p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: خواندن کتاب</h3>
+                <p>جریان اجرا مانند خواندن یک کتاب است. شما از صفحه اول شروع می کنید و به ترتیب می خوانید. اگر به یک پاورقی برخورد کنید، به پایین صفحه می روید، آن را می خوانید و سپس به جایی که بودید باز می گردید.</p>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد</h4>
+                <pre><span class="keyword">def</span> <span class="function">show_even_numbers</span>(n):
+    <span class="keyword">for</span> <span class="function">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):
+        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:
+            <span class="function">print</span>(f<span class="string">"{i} عددی زوج است"</span>)
+        <span class="keyword">else</span>:
+            <span class="function">print</span>(f<span class="string">"{i} عددی فرد است"</span>)
+
+<span class="function">print</span>(<span class="string">"شروع برنامه"</span>)
+<span class="function">show_even_numbers</span>(<span class="number">5</span>)
+<span class="function">print</span>(<span class="string">"پایان برنامه"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>شروع برنامه
+1 عددی فرد است
+2 عددی زوج است
+3 عددی فرد است
+4 عددی زوج است
+5 عددی فرد است
+پایان برنامه</pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>درک جریان اجرا برای درک چگونگی عملکرد برنامه های شما بسیار مهم است.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>مراحل انجام کارها در این تابع را توضیح دهید (فلوی برنامه).</p>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۴. پارامترها و آرگومان ها</h2>
+                <p>پارامترها متغیرهایی هستند که در تعریف تابع ذکر شده اند. آرگومان ها مقادیری هستند که هنگام فراخوانی تابع به آن ارسال می شوند.</p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: فرم ثبت نام</h3>
+                <p>پارامترها مانند جای خالی در یک فرم هستند (به عنوان مثال، "نام: _____"). آرگومان ها اطلاعاتی هستند که شما در آن جاهای خالی می نویسید (به عنوان مثال، "نام: علی").</p>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد</h4>
+                <pre><span class="keyword">def</span> <span class="function">calculate_area</span>(length, width): <span class="comment"># length and width are parameters</span>
+    <span class="function">print</span>(f<span class="string">"Area is: {length * width}"</span>)
+
+<span class="function">calculate_area</span>(<span class="number">10</span>, <span class="number">5</span>) <span class="comment"># 10 and 5 are arguments</span></pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Area is: 50</pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>پارامترها به توابع اجازه می دهند تا با داده های مختلف کار کنند.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>یک تابع بنویسید که یک نام و یک سن را به عنوان پارامتر می گیرد و یک پیام تبریک شخصی را چاپ می کند.</p>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۵. حوزه (اسکوپ) متغیرها</h2>
+                <p>حوزه یک متغیر منطقه ای از کد است که می توان به آن دسترسی داشت. متغیرهای تعریف شده در داخل یک تابع فقط در آن تابع قابل دسترسی هستند (متغیرهای محلی). متغیرهای تعریف شده در خارج از همه توابع در هر نقطه از برنامه قابل دسترسی هستند (متغیرهای سراسری).</p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: راز و بیلبورد</h3>
+                <p>یک متغیر محلی مانند یک راز است که فقط شما و دوستان نزدیکتان می دانید. یک متغیر سراسری مانند یک بیلبورد عمومی است که همه می توانند آن را ببینند.</p>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد</h4>
+                <pre><span class="keyword">global_var</span> = <span class="string">"I am global"</span>
+
+<span class="keyword">def</span> <span class="function">my_function</span>():
+    <span class="keyword">local_var</span> = <span class="string">"I am local"</span>
+    <span class="function">print</span>(global_var) <span class="comment"># Accessible</span>
+    <span class="function">print</span>(local_var) <span class="comment"># Accessible</span>
+
+<span class="function">my_function</span>()
+<span class="function">print</span>(global_var) <span class="comment"># Accessible</span>
+<span class="comment"># print(local_var) # This would cause an error</span></pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>I am global
+I am local
+I am global</pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>درک حوزه به شما کمک می کند تا از خطاهای مربوط به نام متغیر جلوگیری کنید.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>آیا می توان به یک متغیر محلی در خارج از تابع آن دسترسی داشت؟</p>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۶. توابع با مقدار بازگشتی</h2>
+                <p>
+                    توابع در پایتون به دو دسته کلی تقسیم می‌شوند: <strong>توابع با مقدار بازگشتی</strong> و <strong>توابع بدون مقدار بازگشتی</strong>.
+                </p>
+                <p>
+                    <b>توابع با مقدار بازگشتی</b> پس از انجام پردازش، با استفاده از کلمه کلیدی <code>return</code> یک مقدار را به محل فراخوانی خود بازمی‌گردانند. این مقدار می‌تواند در متغیر ذخیره شود یا مستقیماً در محاسبات یا بخش‌های دیگر برنامه استفاده شود.
+                </p>
+                <p>
+                    <b>توابع بدون مقدار بازگشتی</b> معمولاً فقط عملی را انجام می‌دهند (مانند چاپ یا ذخیره‌سازی) و هیچ مقداری را برنمی‌گردانند. اگر در این توابع از <code>return</code> استفاده نشود، مقدار بازگشتی آن‌ها به طور پیش‌فرض <code>None</code> خواهد بود.
+                </p>
+                <p>
+                    تفاوت اصلی این دو دسته در این است که: توابع با مقدار بازگشتی نتیجه‌ای تولید می‌کنند که می‌توان از آن در ادامه برنامه استفاده کرد، اما توابع بدون مقدار بازگشتی فقط عملی را انجام می‌دهند و نتیجه‌ای به کد فراخوان برنمی‌گردانند.
+                </p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: دستگاه خودپرداز و دستگاه نوبت‌دهی</h3>
+                <p>
+                    یک تابع با مقدار بازگشتی مانند یک دستگاه خودپرداز است: شما اطلاعات وارد می‌کنید (ورودی) و در نهایت پول نقد یا رسید (خروجی) دریافت می‌کنید. اما یک تابع بدون مقدار بازگشتی مانند دستگاهی است که فقط نوبت شما را اعلام می‌کند یا پیامی نمایش می‌دهد، بدون اینکه چیزی به شما بدهد.
+                </p>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد (تابع با مقدار بازگشتی)</h4>
+                <pre><span class="keyword">def</span> <span class="function">add</span>(a, b):
+    <span class="keyword">return</span> a + b
+
+<span class="keyword">result</span> = <span class="function">add</span>(<span class="number">3</span>, <span class="number">4</span>)
+<span class="function">print</span>(result) <span class="comment"># Output: 7</span></pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>7</pre>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد (تابع بدون مقدار بازگشتی)</h4>
+                <pre><span class="keyword">def</span> <span class="function">greet_user</span>(name):
+    <span class="function">print</span>(f<span class="string">"سلام، {name}! خوش آمدید."</span>)
+
+<span class="function">greet_user</span>(<span class="string">"علی"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>سلام، علی! خوش آمدید.</pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>توابع با مقدار بازگشتی (<code>return</code>) نتیجه‌ای را به محل فراخوانی برمی‌گردانند و می‌توان این مقدار را در متغیر ذخیره یا در عملیات دیگر استفاده کرد.</li>
+                    <li>توابع بدون مقدار بازگشتی فقط عملی را انجام می‌دهند (مانند چاپ یا ذخیره‌سازی) و هیچ مقداری را بازنمی‌گردانند؛ مقدار پیش‌فرض بازگشتی آن‌ها <code>None</code> است.</li>
+                    <li>اگر به نتیجه تابع در ادامه برنامه نیاز دارید، باید از <code>return</code> استفاده کنید؛ در غیر این صورت، فقط کافی است عملیات مورد نظر را در بدنه تابع بنویسید.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>یک تابع بنویسید که دو عدد را می‌گیرد و ب.م.م آن‌ها را <b>برمی‌گرداند</b> (یعنی باید مقدار را با <code>return</code> بازگرداند).</p>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع قالب اسلاید جدید ======================= -->
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۷. مقادیر پیش فرض پارامتر</h2>
+                <p>
+                    پارامترهای دارای مقدار پیش‌فرض به برنامه‌نویس اجازه می‌دهند تا توابعی انعطاف‌پذیرتر بسازد. اگر هنگام فراخوانی تابع، مقداری برای این پارامترها ارسال نشود، مقدار پیش‌فرض آن‌ها استفاده می‌شود. این ویژگی باعث می‌شود تابع هم با ورودی‌های مختلف و هم بدون برخی ورودی‌ها به‌درستی عمل کند.
+                </p>
+                <div class="highlight-box">
+                    <p>
+                        <b>نکته مهم:</b> <br>
+                        <b>پارامترهایی که مقدار پیش‌فرض دارند باید در انتهای لیست پارامترها قرار بگیرند.</b> یعنی ابتدا پارامترهای اجباری و سپس پارامترهای پیش‌فرض نوشته می‌شوند. در غیر این صورت با خطا مواجه خواهید شد.
+                    </p>
+                </div>
+                <p>
+                    استفاده از مقادیر پیش‌فرض، نوشتن کد را ساده‌تر و خواناتر می‌کند و نیاز به تکرار کدهای مشابه را کاهش می‌دهد.
+                </p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: تنظیمات پیش‌فرض و سفارش غذا</h3>
+                <p>
+                    مقادیر پیش‌فرض مانند تنظیمات پیش‌فرض گوشی یا اپلیکیشن هستند؛ اگر شما گزینه‌ای را تغییر ندهید، همان مقدار پیش‌فرض استفاده می‌شود. یا مثل سفارش غذا در رستوران: اگر نگویید که نوشیدنی خاصی می‌خواهید، برای شما آب می‌آورند.
+                </p>
+            </div>
+            <div class="code-block">
+                <h4>مثال کد</h4>
+                <pre><span class="keyword">def</span> <span class="function">greet</span>(name, message=<span class="string">"سلام"</span>):
+    <span class="function">print</span>(f<span class="string">"{message}, {name}!"</span>)
+
+<span class="function">greet</span>(<span class="string">"علی"</span>)          <span class="comment"># از مقدار پیش‌فرض استفاده می‌کند</span>
+<span class="function">greet</span>(<span class="string">"مینا"</span>, <span class="string">"درود"</span>) <span class="comment"># مقدار پارامتر پیش‌فرض جایگزین شده است</span></pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>سلام, علی!
+درود, مینا!</pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>مقادیر پیش‌فرض پارامترها باعث انعطاف‌پذیری و راحتی استفاده از تابع می‌شوند.</li>
+                    <li><b>همیشه پارامترهای دارای مقدار پیش‌فرض را بعد از پارامترهای اجباری قرار دهید.</b></li>
+                    <li>در صورت ارسال آرگومان، مقدار پیش‌فرض نادیده گرفته می‌شود و مقدار جدید جایگزین خواهد شد.</li>
+                    <li>این قابلیت به شما اجازه می‌دهد توابعی بنویسید که هم ساده و هم قدرتمند باشند.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ سوال</h3>
+                <p>یک تابع بنویسید که یک نام و یک سلام را می‌گیرد، با سلام پیش‌فرض "سلام".</p>
+            </div>
+        </section>
+        <!-- ======================= پایان قالب اسلاید جدید ======================= -->
+
+        <!-- ======================= شروع اسلاید پایانی ======================= -->
+        <section class="slide" id="slide-final">
+            <div class="slide-header">
+                <h2>🎉 تبریک! شما اولین قدم بزرگ در یادگیری توابع را برداشتید!</h2>
+                <p>
+                    شما در این بخش با مفاهیم اصلی توابع، پارامترها، بازگشت مقادیر و نحوه اجرای توابع در برنامه‌نویسی عملی آشنا شدید.
+                </p>
+                <p>
+                    با تعریف توابع، می‌توانید کدهایی بنویسید که <b>خواناتر</b>، <b>قابل نگهداری‌تر</b> و <b>انعطاف‌پذیرتر</b> باشند. توابع به شما امکان می‌دهند منطق تکرارشونده یا پیچیده را در یک بخش مجزا قرار دهید و هر زمان که نیاز بود، آن را فراخوانی کنید. این کار باعث می‌شود تغییر یا بهبود کد بسیار ساده‌تر شود و همچنین دیگر نیازی به تکرار کدهای مشابه در بخش‌های مختلف برنامه نداشته باشید.
+                </p>
+                <p>
+                    <b>کاربردهای توابع:</b> <br>
+                    - تقسیم‌بندی مسائل بزرگ به بخش‌های کوچک‌تر و قابل کنترل<br>
+                    - استفاده مجدد از منطق بدون کپی کردن کد<br>
+                    - افزایش سرعت توسعه و کاهش خطاها<br>
+                    - ساده‌سازی تست و اشکال‌زدایی برنامه
+                </p>
+            </div>
+            <div class="highlight-box">
+                <p>
+                    <b>قدم بعدی:</b><br>
+                    یک تابع بنویسید که یک لیست از اعداد دریافت کند و <b>جمع اعداد زوج</b> و <b>جمع اعداد فرد</b> را جداگانه محاسبه و برگرداند.<br>
+                    سپس آن را با یک لیست نمونه فراخوانی کنید و خروجی را مشاهده کنید.
+                </p>
+            </div>
+        </section>
+        <!-- ======================= پایان اسلاید پایانی ======================= -->
+
+        <footer>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - دانشکده‌ی مهندسی کامپیوتر دانشگاه صنعتی شریف</p>
+        </footer>
+    </div>
+
+    <script>
+        // کدهای جاوااسکریپت برای دکمه‌ها - بهتر است تغییر ندهید
+        function goToPrevious() { window.location.href = '05.html'; /* آدرس صفحه قبلی */ }
+        function goToNext() { window.location.href = '07.html'; /* آدرس صفحه بعدی */ }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function goToPreviousPage() { window.history.back(); }
+        function goToHome() { window.location.href = '../../index.html'; /* آدرس صفحه اصلی */ }
+
+        // این بخش را برای مدیریت دکمه قبلی/بعدی در هر صفحه تنظیم کنید
+        const currentSlide = '01'; // شماره این اسلاید
+        if (currentSlide === '01') {
+            document.getElementById('prevBtn').disabled = true;
+        }
+    </script>
+</body>
+</html>
