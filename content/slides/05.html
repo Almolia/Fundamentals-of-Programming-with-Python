@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>ساختار تکرار: حلقه‌ها</title>
+    <style>
+        /* تمام کدهای CSS شما بدون تغییر در اینجا قرار دارند تا ظاهر حفظ شود */
+        .keyword-inline { font-family: 'Courier New', monospace; background: #f0e6ff; color: #6a1b9a; padding: 2px 6px; border-radius: 5px; font-size: 0.9em; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Vazirmatn', sans-serif; background: linear-gradient(135deg, #1E1A3B 0%, #2D2654 100%); color: #333; overflow-x: hidden; min-height: 100vh; direction: rtl; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 20px; color: white; animation: fadeInDown 1s ease; }
+        header h1 { font-size: 3em; font-weight: 700; margin-bottom: 10px; background: linear-gradient(90deg, #B794F6, #E0BBE4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        header p { font-size: 1.2em; color: #E0BBE4; font-weight: 300; }
+        .slide { background: #F9F9FB; border-radius: 24px; padding: 50px; margin: 30px auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); animation: slideUp 0.8s ease; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .slide:hover { transform: translateY(-5px); box-shadow: 0 25px 70px rgba(183, 148, 246, 0.4); }
+        .slide-header { border-right: 6px solid #B794F6; padding-right: 20px; margin-bottom: 30px; }
+        .slide-header h2 { font-size: 2.2em; color: #1E1A3B; margin-bottom: 10px; }
+        .slide-header p { font-size: 1.1em; color: #666; line-height: 1.9; text-align: justify; text-justify: inter-word; }
+        .analogy-box { background: linear-gradient(135deg, #E0BBE4 0%, #B794F6 100%); border-radius: 16px; padding: 25px; margin: 25px 0; color: white; position: relative; overflow: hidden; }
+        .analogy-box::before { content: "💡"; font-size: 3em; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); opacity: 0.3; }
+        .analogy-box h3 { font-size: 1.4em; margin-bottom: 10px; }
+        .analogy-box p { font-size: 1.05em; line-height: 1.8; text-align: justify; text-justify: inter-word; }
+        .output-block { background: #1a1a1a; border-radius: 12px; padding: 25px; margin: 25px 0; border-right: 4px solid #50FA7B; }
+        .output-block h4 { color: #50FA7B; margin-bottom: 15px; font-size: 1.1em; text-align: right; }
+        .output-block pre { color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.95em; line-height: 1.8; white-space: pre-wrap; text-align: left; direction: ltr;}
+        .error-output { background: #2a1a1a; border-right: 4px solid #FF5555; }
+        .error-output h4 { color: #FF5555; }
+        .quiz-box { background: #EDEDED; border-radius: 16px; padding: 30px; margin: 25px 0; border: 2px solid #B794F6; }
+        .quiz-box h3 { color: #1E1A3B; margin-bottom: 15px; font-size: 1.3em; }
+        .quiz-box p { color: #444; font-size: 1.05em; line-height: 1.8; text-align: justify; text-justify: inter-word; }
+        .highlight-box { background: #FFF4E6; border-right: 4px solid #FF9F43; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .highlight-box p { color: #333; margin: 0; line-height: 1.8; text-align: justify; text-justify: inter-word; }
+        .takeaways { background: #E8F5E9; border-radius: 12px; padding: 25px; margin: 25px 0; border-right: 4px solid #4CAF50; }
+        .takeaways h4 { color: #2E7D32; margin-bottom: 15px; font-size: 1.2em; }
+        .takeaways ul { list-style: none; padding: 0; }
+        .takeaways li { color: #333; margin: 10px 0; padding-right: 25px; position: relative; line-height: 1.8; text-align: justify; text-justify: inter-word; }
+        .takeaways li::before { content: "✓"; color: #4CAF50; font-weight: bold; position: absolute; right: 0; }
+        .code-block { background: #282a36; border-radius: 12px; padding: 25px; margin: 25px 0; border-right: 4px solid #BD93F9; overflow-x: auto; }
+        .code-block pre { color: #f8f8f2; font-family: 'Courier New', monospace; font-size: 0.95em; line-height: 1.8; margin: 0; direction: ltr; text-align: left; }
+        .code-block .keyword { color: #FF79C6; font-weight: bold; }
+        .code-block .string { color: #F1FA8C; }
+        .code-block .comment { color: #6272A4; font-style: italic; }
+        .code-block .function { color: #50FA7B; }
+        .code-block .number { color: #BD93F9; }
+        footer { text-align: center; padding: 40px 20px; color: #E0BBE4; font-size: 0.95em; }
+        .top-nav { position: fixed; top: 20px; left: 0; right: 0; z-index: 1000; display: flex; justify-content: space-between; padding: 0 30px; pointer-events: none; }
+        .top-nav-btn { background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%); color: white; border: none; padding: 12px 28px; border-radius: 25px; cursor: pointer; font-size: 1em; font-weight: 600; transition: all 0.3s ease; font-family: 'Vazirmatn', sans-serif; box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3); pointer-events: auto; }
+        .top-nav-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5); }
+        .top-nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .bottom-nav { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .bottom-nav-btn { background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%); color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3); display: flex; align-items: center; justify-content: center; }
+        .bottom-nav-btn svg { width: 28px; height: 28px; fill: white; }
+        .bottom-nav-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5); }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) { header h1 { font-size: 2em; } .slide { padding: 30px 20px; } .slide-header h2 { font-size: 1.6em; } .top-nav { padding: 0 15px; } .top-nav-btn { padding: 10px 20px; font-size: 0.9em; } .bottom-nav { bottom: 20px; left: 20px; gap: 10px;} .bottom-nav-btn { width: 50px; height: 50px; } .bottom-nav-btn svg { width: 24px; height: 24px; } }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <button class="top-nav-btn" id="prevBtn" onclick="goToPrevious()">→ قبلی</button>
+        <button class="top-nav-btn" id="nextBtn" onclick="goToNext()">بعدی ←</button>
+    </div>
+    <div class="bottom-nav">
+        <button class="bottom-nav-btn" id="scrollToTopBtn" onclick="scrollToTop()" title="برو به بالا"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/></svg></button>
+        <button class="bottom-nav-btn" id="prevPageBtn" onclick="goToPreviousPage()" title="صفحه قبل"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
+        <button class="bottom-nav-btn" id="homeBtn" onclick="goToHome()" title="صفحه اصلی"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg></button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>ساختار تکرار: حلقه‌ها</h1>
+            <p>یادگیری نحوه تکرار دستورات با حلقه‌های for و while</p>
+        </header>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۱. حلقه‌ها (Loops) در پایتون</h2>
+                <p>
+                    در پایتون از حلقه‌ها برای تکرار بهینه اقدامات استفاده می‌شود. اگر حلقه‌ها وجود نداشتند، مجبور بودیم یک عمل تکراری را بارها و بارها با کدهای جداگانه بنویسیم که هم خسته‌کننده و هم مستعد خطا بود. حلقه‌ها این امکان را می‌دهند که وظایف تکراری به صورت خودکار انجام شوند و تنها با چند خط کد، عملیات تکراری را مدیریت کنیم.
+                    <br>
+                    در بسیاری از کاربردهای عملی مانند تحلیل داده‌ها، پردازش فایل‌ها یا انجام شبیه‌سازی‌ها، نیاز داریم یک کار را بارها انجام دهیم. استفاده از حلقه‌ها باعث صرفه‌جویی در زمان، افزایش خوانایی برنامه و نگهداری آسان‌تر کد می‌شود. در واقع، حلقه‌ها یکی از پایه‌های اصلی برنامه‌نویسی هستند چون اجرای تکرارشونده را ممکن می‌کنند و برنامه‌ها را قدرتمند و منعطف می‌سازند.
+                    <br>
+                    انواع اصلی حلقه‌ها عبارتند از حلقه‌های <span class="keyword-inline">for</span> (شمارش روی آیتم‌ها) و حلقه‌های <span class="keyword-inline">while</span> (بر اساس شرایط).
+                </p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: لیست وظایف</h3>
+                <p><strong>حلقه <span class="keyword-inline">for</span>:</strong> "به ازای هر کار در لیست وظایف، آن را انجام بده و تیک بزن." (شما می‌دانید دقیقاً چند کار دارید).<br>
+                <strong>حلقه <span class="keyword-inline">while</span>:</strong> "تا زمانی که انرژی داری، به کار کردن ادامه بده." (شما نمی‌دانید دقیقاً چه زمانی انرژی‌تان تمام می‌شود).</p>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکات کلیدی</h4>
+                <ul>
+                    <li>حلقه‌ها کد را کوتاه و خوانا نگه می‌دارند (اصل DRY).</li>
+                    <li><span class="keyword-inline">for</span> برای تکرار روی دنباله‌ها (تعداد مشخص).</li>
+                    <li><span class="keyword-inline">while</span> برای تکرار بر اساس شرط (تعداد نامشخص).</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>کدام نوع حلقه (<span class="keyword-inline">for</span> یا <span class="keyword-inline">while</span>) برای برنامه‌ای که از کاربر رمز عبور می‌پرسد تا زمانی که آن را درست وارد کند، مناسب‌تر است؟</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۲. حلقه for</h2>
+                <p>
+                    حلقه <span class="keyword-inline">for</span> یکی از پرکاربردترین ابزارها برای تکرار (iterate) روی یک sequence (مانند <span class="keyword-inline">list</span>، <span class="keyword-inline">tuple</span>، <span class="keyword-inline">string</span> یا <span class="keyword-inline">range</span>) است. این حلقه به شما اجازه می‌دهد اعضای یک لیست یا دنباله را یکی‌یکی بردارید و روی هر کدام عملی انجام دهید؛ مثلاً هر عضو را بررسی، چاپ یا علامت‌گذاری کنید.
+                    <br>
+                    زمانی که تعداد دفعات تکرار از قبل مشخص باشد، حلقه <span class="keyword-inline">for</span> بهترین انتخاب است. مثلاً اگر بخواهیم روی تمام اعضای یک لیست یا تعداد مشخصی تکرار انجام دهیم، این حلقه بسیار ساده و خواناست.
+                    <br>
+                    اگر بخواهید حلقه را دقیقاً به تعداد دلخواه اجرا کنید (مثلاً ۵ بار)، می‌توانید از تابع <span class="keyword-inline">range()</span> استفاده کنید. این تابع یک دنباله از اعداد تولید می‌کند و حلقه <span class="keyword-inline">for</span> روی آن حرکت می‌کند. برای نمونه، کد زیر ۵ بار اجرا می‌شود و در هر بار شماره مرحله را چاپ می‌کند:
+                </p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># حلقه for روی یک list</span>
+<span class="keyword">my_list</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]
+<span class="keyword">for</span> item <span class="keyword">in</span> my_list:
+    <span class="function">print</span>(item)
+
+<span class="comment"># حلقه for روی یک string</span>
+<span class="keyword">my_string</span> = <span class="string">"Python"</span>
+<span class="keyword">for</span> char <span class="keyword">in</span> my_string:
+    <span class="function">print</span>(char)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>1
+2
+3
+4
+P
+y
+t
+h
+o
+n</pre>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>یک لیست از ۵ اسم ایجاد کنید. با استفاده از حلقه <span class="keyword-inline">for</span>، به هر اسم عبارت "Bye " را اضافه کرده و آن را چاپ کنید.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۳. سینتکس حلقه for</h2>
+            </div>
+            <div class="highlight-box">
+                <h3 style="margin-bottom: 10px;">🔹 سینتکس حلقه for</h3>
+                <p>
+                    ساختار کلی حلقه <span class="keyword-inline">for</span> در پایتون به صورت <span class="keyword-inline">for variable in sequence:</span> است.<br>
+                    <strong>variable</strong> متغیری است که در هر بار تکرار مقدار جدیدی از sequence می‌گیرد.<br>
+                    <strong>sequence</strong> می‌تواند لیست، رشته، تاپل یا خروجی تابعی مثل <span class="keyword-inline">range()</span> باشد.<br>
+                    بدنه (body) حلقه شامل دستوراتی است که در هر بار تکرار اجرا می‌شوند.<br>
+                    می‌توان از متغیر شمارنده (مثلاً <span class="keyword-inline">i</span> در مثال‌ها) داخل بدنه برای انجام کارهایی مثل چاپ مقدار، محاسبه یا شرط استفاده کرد.
+                </p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># مثال ساده: چاپ مقدار و مربع آن با استفاده از شمارنده حلقه</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">3</span>):
+    <span class="function">print</span>(<span class="string">f"i = {i}, مربع = {i*i}"</span>)
+</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>i = 0, مربع = 0
+i = 1, مربع = 1
+i = 2, مربع = 4</pre>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># تکرار ۵ بار با استفاده از range</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">5</span>):
+    <span class="function">print</span>(<span class="string">f"مرحله {i}"</span>)
+</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>مرحله 0
+مرحله 1
+مرحله 2
+مرحله 3
+مرحله 4</pre>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۴. تکرار با Index در for</h2>
+                <p>ما همچنین می‌توانیم از index عناصر در sequence برای تکرار استفاده کنیم. ایده کلیدی این است که ابتدا طول  لیست را محاسبه کرده و سپس بر روی sequence در محدوده   این طول تکرار کنیم.</p>
+            </div>
+            <div class="code-block">
+<pre><span class="keyword">my_list</span> = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]
+<span class="keyword">list_len</span> = <span class="function">len</span>(my_list)
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(list_len):
+    <span class="function">print</span>(<span class="string">f"Index {i} has value: {my_list[i]}"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Index 0 has value: a
+Index 1 has value: b
+Index 2 has value: c</pre>
+            </div>
+            <div class="highlight-box">
+                <p>💡 <strong>نکته:</strong> استفاده از <span class="keyword-inline">for item in my_list</span> (روش اسلاید قبلی) معمولاً «پایتونیک‌تر» (Pythonic) و خواناتر از تکرار بر اساس index است.</p>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>با استفاده از <span class="keyword-inline">range</span> و <span class="keyword-inline">len</span>، کدی بنویسید که فقط آیتم‌های با اندیس زوج (0, 2, 4, ...) را از یک لیست چاپ کند.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۵. استفاده از تابع enumerate در حلقه for</h2>
+                <p>
+                    گاهی لازم است در حین تکرار روی آیتم‌های یک لیست، هم‌زمان به مقدار و شماره‌ی اندیس آن‌ها دسترسی داشته باشیم. در این مواقع به جای استفاده از <span class="keyword-inline">range</span> و <span class="keyword-inline">len</span>، می‌توانیم از تابع <span class="keyword-inline">enumerate()</span> استفاده کنیم.
+                    <br>
+                    این تابع به طور خودکار در هر تکرار، دو مقدار برمی‌گرداند: <strong>index</strong> (شماره عنصر) و <strong>value</strong> (مقدار عنصر). این کار باعث می‌شود کد ساده‌تر، خواناتر و «پایتونیک‌تر» باشد.
+                </p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># استفاده از enumerate برای گرفتن همزمان index و مقدار</span>
+<span class="keyword">my_list</span> = [<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>]
+
+<span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="function">enumerate</span>(my_list):
+    <span class="function">print</span>(<span class="string">f"Index {index} → Value: {value}"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Index 0 → Value: apple
+Index 1 → Value: banana
+Index 2 → Value: cherry</pre>
+            </div>
+            <div class="highlight-box">
+                <p>💡 <strong>نکته:</strong> تابع <span class="keyword-inline">enumerate()</span> به صورت پیش‌فرض از ۰ شروع می‌کند، اما می‌توان با پارامتر دوم، نقطه‌ی شروع را تغییر داد (مثلاً <span class="keyword-inline">enumerate(my_list, start=1)</span>).</p>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>یک لیست از نام شهرها بنویسید و با استفاده از <span class="keyword-inline">enumerate()</span>، شماره‌ی هر شهر را از ۱ شروع کرده و در قالب <strong>"شهر ۱: تهران"</strong> چاپ کنید.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۵. حلقه while</h2>
+                <p>در Python، حلقه <span class="keyword-inline">while</span> برای اجرای مکرر یک بلوک از دستورات تا زمانی که یک شرط معین برقرار  باشد، استفاده می‌شود. وقتی شرط <span class="keyword-inline">false</span> شود، خط بلافاصله بعد از حلقه در برنامه اجرا می‌شود.</p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># حلقه تا زمانی اجرا می‌شود که cnt < 3 باشد</span>
+<span class="keyword">cnt</span> = <span class="number">0</span>
+<span class="keyword">while</span> (cnt < <span class="number">3</span>):
+    cnt = cnt + <span class="number">1</span>
+    <span class="function">print</span>(<span class="string">"Hello Geek"</span>)
+
+<span class="function">print</span>(<span class="string">"End of loop"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Hello Geek
+Hello Geek
+Hello Geek
+End of loop</pre>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>یک حلقه <span class="keyword-inline">while</span> بنویسید که اعداد را از ۱۰ به صورت معکوس بشمارد و چاپ کند (10, 9, 8, ... 1). فراموش نکنید که شمارنده را کم کنید!</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۶. حلقه infinite while</h2>
+                <p>اگر بخواهیم یک بلوک کد به تعداد نامحدود (infinite) اجرا شود، می‌توانیم از حلقه <span class="keyword-inline">while</span> استفاده کنیم. کد زیر از <span class="keyword-inline">while True</span> استفاده می‌کند، به این معنی که حلقه تا ابد اجرا می‌شود مگر اینکه با دستور <span class="keyword-inline">break</span> از آن خارج شویم.</p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># این حلقه تا زمانی که به break نرسد، متوقف نمی‌شود</span>
+<span class="keyword">count</span> = <span class="number">0</span>
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    count += <span class="number">1</span>
+    <span class="function">print</span>(<span class="string">f"Iteration {count}"</span>)
+    <span class="keyword">if</span> count >= <span class="number">3</span>:
+        <span class="keyword">break</span> <span class="comment"># خروج از حلقه بی‌نهایت</span>
+</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Iteration 1
+Iteration 2
+Iteration 3</pre>
+            </div>
+            <div class="highlight-box">
+                <p>💡 <strong>هشدار:</strong> هنگام استفاده از <span class="keyword-inline">while True</span> همیشه مطمئن شوید که یک شرط <span class="keyword-inline">break</span> مشخص دارید، در غیر این صورت برنامه شما هنگ می‌کند.</p>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>یک حلقه <span class="keyword-inline">while True</span> بنویسید که از کاربر یک عدد بگیرد. اگر کاربر عدد ۰ را وارد کرد، با دستور <span class="keyword-inline">break</span> از حلقه خارج شوید.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۷. حلقه‌های تودرتو (Nested Loops)</h2>
+                <p>زبان Python اجازه می‌دهد از یک حلقه در داخل حلقه‌ای دیگر استفاده شود که به آن حلقه تودرتو (nested loop) می‌گویند. می‌توان هر نوع حلقه‌ای را درون هر نوع حلقه دیگری قرار داد (مثلاً <span class="keyword-inline">for</span> داخل <span class="keyword-inline">while</span> یا برعکس).</p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># در این کد، حلقه درونی (j) به تعداد i (شماره تکرار حلقه بیرونی) اجرا می‌شود</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, <span class="number">4</span>):      <span class="comment"># حلقه بیرونی: i از 1 تا 3</span>
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(i):     <span class="comment"># حلقه درونی: j از 0 تا i-1</span>
+        <span class="function">print</span>(i, end=<span class="string">" "</span>)  <span class="comment"># مقدار i را چاپ کن</span>
+    <span class="function">print</span>()                <span class="comment"># پس از اتمام حلقه درونی، به خط بعد برو</span>
+</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>1 
+2 2 
+3 3 3 </pre>
+            </div>
+            <div class="takeaways">
+                <h4>📌 نکته</h4>
+                <ul>
+                    <li>به ازای هر <strong>یک</strong> تکرار حلقه بیرونی، حلقه درونی <strong>تمام</strong> تکرارهای خود را کامل اجرا می‌کند.</li>
+                </ul>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>با استفاده از حلقه‌های تودرتو، جدول ضرب ۳x۳ (از ۱ تا ۳) را چاپ کنید.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۸. دستورات کنترل حلقه (Control Statements)</h2>
+                <p>دستورات کنترل حلقه، اجرا را از توالی عادی خود تغییر می‌دهند. وقتی اجرا از یک scope خارج می‌شود، تمام اشیاء خودکاری که در آن scope ایجاد شده بودند، از بین می‌روند. پایتون از سه دستور کنترلی اصلی پشتیبانی می‌کند.</p>
+            </div>
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: رانندگی در یک مسیر مسابقه</h3>
+                <p><strong><span class="keyword-inline">continue</span>:</strong> شما یک پیچ را نادیده می‌گیرید و میان‌بر می‌زنید تا به دور بعدی برسید (پرش از این تکرار).<br>
+                <strong><span class="keyword-inline">break</span>:</strong> شما از پیت-استاپ (Pit Stop) استفاده می‌کنید و به طور کامل از مسابقه خارج می‌شوید (خروج کامل از حلقه).<br>
+                <strong><span class="keyword-inline">pass</span>:</strong> شما از خط شروع/پایان عبور می‌کنید اما کاری انجام نمی‌دهید، فقط به دور خود ادامه می‌دهید (دستور خالی).</p>
+            </div>
+            <div class="takeaways">
+                <h4>📌 ۳ دستور کنترلی</h4>
+                <ul>
+                    <li><strong>Continue Statement:</strong> کنترل را به ابتدای حلقه بازمی‌گرداند.</li>
+                    <li><strong>Break Statement:</strong> کنترل را از حلقه خارج می‌کند.</li>
+                    <li><strong>Pass Statement:</strong> هیچ کاری انجام نمی‌دهد (یک دستور خالی).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۹. دستور continue</h2>
+                <p>دستور <span class="keyword-inline">continue</span> در پایتون، کنترل را به ابتدای حلقه بازمی‌گرداند. این دستور برای رد شدن (skip) از تکرار فعلی حلقه و رفتن به تکرار بعدی استفاده می‌شود و برای زمانی مفید است که بخواهیم از شرایط خاصی عبور کنیم بدون اینکه حلقه خاتمه یابد.</p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># چاپ تمام حروف به جز 'e' و 's'</span>
+<span class="keyword">for</span> letter <span class="keyword">in</span> <span class="string">'geeksforgeeks'</span>:
+    <span class="keyword">if</span> letter == <span class="string">'e'</span> <span class="keyword">or</span> letter == <span class="string">'s'</span>:
+        <span class="keyword">continue</span>
+    <span class="function">print</span>(<span class="string">f"Current Letter : {letter}"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Current Letter : g
+Current Letter : k
+Current Letter : f
+Current Letter : o
+Current Letter : r
+Current Letter : g
+Current Letter : k</pre>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>یک حلقه <span class="keyword-inline">for</span> بنویسید که روی اعداد ۱ تا ۱۰ تکرار کند. با استفاده از <span class="keyword-inline">continue</span>، کاری کنید که فقط اعداد فرد چاپ شوند (از اعداد زوج بپرید).</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۱۰. دستور break</h2>
+                <p>دستور <span class="keyword-inline">break</span> در پایتون کنترل را از حلقه خارج می‌کند. این دستور برای خروج زودهنگام (prematurely) از حلقه هنگام برآورده شدن یک شرط مشخص استفاده می‌شود و اجرای حلقه متوقف می‌شود.</p>
+            </div>
+            <div class="code-block">
+<pre><span class="comment"># توقف حلقه به محض رسیدن به 'e' یا 's'</span>
+<span class="keyword">for</span> letter <span class="keyword">in</span> <span class="string">'geeksforgeeks'</span>:
+    <span class="keyword">if</span> letter == <span class="string">'e'</span> <span class="keyword">or</span> letter == <span class="string">'s'</span>:
+        <span class="keyword">break</span>
+    <span class="function">print</span>(<span class="string">f"Current Letter : {letter}"</span>)
+<span class="function">print</span>(<span class="string">"End of loop"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Current Letter : g
+End of loop</pre>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ خودآزمایی</h3>
+                <p>یک لیست از اعداد <span class="keyword-inline">[1, 5, 9, -4, 10, 2]</span> دارید. با حلقه <span class="keyword-inline">for</span> روی آن حرکت کنید و به محض رسیدن به اولین عدد منفی، حلقه را با <span class="keyword-inline">break</span> متوقف کنید.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>۱۱. دستور pass</h2>
+                <p>ما از دستور <span class="keyword-inline">pass</span> در پایتون برای نوشتن حلقه‌های خالی استفاده می‌کنیم. <span class="keyword-inline">pass</span> همچنین برای دستورات کنترلی، توابع و کلاس‌های خالی استفاده می‌شود. در این مثال، حلقه روی هر حرف در 'geeksforgeeks' تکرار می‌شود اما هیچ عملیاتی انجام نمی‌دهد.</p>
+            </div>
+            <div class="code-block">
+<pre><span class="keyword">s</span> = <span class="string">'geeksforgeeks'</span>
+<span class="keyword">for</span> letter <span class="keyword">in</span> s:
+    <span class="comment"># فعلا نمی‌خواهیم کاری انجام دهیم، اما یک بدنه لازم است</span>
+    <span class="keyword">pass</span>
+
+<span class="comment"># پس از پایان حلقه، 'letter' آخرین مقدار خود را حفظ کرده است</span>
+<span class="function">print</span>(<span class="string">f"Last Letter : {letter}"</span>)</pre>
+            </div>
+            <div class="output-block">
+                <h4>✅ خروجی:</h4>
+                <pre>Last Letter : s</pre>
+            </div>
+            <div class="quiz-box">
+                <h3>❓ کاربرد `pass`</h3>
+                <p>از <span class="keyword-inline">pass</span> اغلب به عنوان یک  (placeholder) استفاده می‌شود. زمانی که در حال طراحی ساختار کد خود هستید و می‌دانید به یک حلقه یا تابع نیاز دارید اما هنوز آماده نوشتن منطق آن نیستید، از <span class="keyword-inline">pass</span> استفاده می‌کنید تا از خطای <span class="keyword-inline">SyntaxError</span> جلوگیری کنید.</p>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <h2>🎉 تبریک! شما مفاهیم حلقه‌ها را یاد گرفتید!</h2>
+                <p>
+                    عالی بود! تا اینجا یاد گرفتید که چگونه از حلقه‌ها برای اجرای دستورات تکراری در پایتون استفاده کنید.<br>
+                    اکنون می‌دانید تفاوت بین حلقه‌های <span class="keyword-inline">for</span> و <span class="keyword-inline">while</span> چیست، چطور با <span class="keyword-inline">range()</span> تعداد تکرار را مشخص کنید، و با تابع <span class="keyword-inline">enumerate()</span> هم‌زمان به اندیس و مقدار عناصر دسترسی داشته باشید.<br>
+                    همچنین با حلقه‌های تودرتو و دستورات کنترلی مانند <span class="keyword-inline">break</span>، <span class="keyword-inline">continue</span> و <span class="keyword-inline">pass</span> آشنا شدید.
+                </p>
+            </div>
+            <div class="takeaways">
+                <h4>📘 مرور آموخته‌ها</h4>
+                <ul>
+                    <li>حلقه <span class="keyword-inline">for</span> برای پیمایش دنباله‌ها و تکرار با تعداد مشخص استفاده می‌شود.</li>
+                    <li>حلقه <span class="keyword-inline">while</span> برای تکرار تا زمانی که شرط برقرار است کاربرد دارد.</li>
+                    <li>تابع <span class="keyword-inline">range()</span> برای تولید توالی عددی و کنترل دفعات تکرار مفید است.</li>
+                    <li><span class="keyword-inline">enumerate()</span> خوانایی کد را هنگام نیاز به index افزایش می‌دهد.</li>
+                    <li>با دستورات <span class="keyword-inline">break</span>، <span class="keyword-inline">continue</span> و <span class="keyword-inline">pass</span> می‌توانید رفتار حلقه را کنترل کنید.</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <p>
+                    💡 <strong>در ادامه‌ی مسیر:</strong> وقتی با ساختارهای داده‌ای پیشرفته‌تر مثل <span class="keyword-inline">list</span>، <span class="keyword-inline">dict</span> و <span class="keyword-inline">set</span> آشنا شویم،<br>
+                    دوباره به حلقه‌ها برمی‌گردیم تا ببینیم چگونه می‌توان به شکل مؤثر روی این ساختارها پیمایش کرد.
+                </p>
+            </div>
+        </section>
+        <footer>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - دانشکده‌ی مهندسی کامپیوتر دانشگاه صنعتی شریف</p>
+        </footer>
+    </div>
+
+    <script>
+        // کدهای جاوااسکریپت برای دکمه‌ها
+        function goToPrevious() { window.location.href = '04.html'; /* آدرس صفحه قبلی */ }
+        function goToNext() { window.location.href = '06.html'; /* آدرس صفحه بعدی */ }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function goToPreviousPage() { window.location.href = 'index.html'; }
+        function goToHome() { window.location.href = '../../index.html'; }
+
+        // این بخش را برای مدیریت دکمه قبلی/بعدی در هر صفحه تنظیم کنید
+        const currentSlide = '01'; // شماره این اسلاید
+        if (currentSlide === '01') {
+            document.getElementById('prevBtn').disabled = true;
+        }
+    </script>
+</body>
+</html>
