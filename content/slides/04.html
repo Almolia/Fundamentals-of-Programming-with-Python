@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>ساختار انتخاب</title>
+    <style>
+        /* جدول عملگرها */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.05em;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        table th {
+            background: linear-gradient(135deg, #B794F6, #9B7ED6);
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            padding: 14px;
+            font-size: 1.1em;
+        }
+
+        table td {
+            text-align: right;
+            padding: 14px 18px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+
+        table tr:nth-child(even) td {
+            background: #F8F7FC;
+        }
+
+        table tr:hover td {
+            background: #F0E9FF;
+            transition: background 0.3s ease;
+        }
+
+        /* ستون اول جدول عملگرها (نمایش چپ‌به‌راست و فونت مونو) */
+        table td:first-child {
+            direction: ltr;
+            text-align: center;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #1E1A3B 0%, #2D2654 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            animation: fadeInDown 1s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #B794F6, #E0BBE4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #E0BBE4;
+            font-weight: 300;
+        }
+
+        .slide {
+            background: #F9F9FB;
+            border-radius: 24px;
+            padding: 50px;
+            margin: 30px auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.8s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(183, 148, 246, 0.4);
+        }
+
+        .slide-header {
+            border-right: 6px solid #B794F6;
+            padding-right: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slide-header h2 {
+            font-size: 2.2em;
+            color: #1E1A3B;
+            margin-bottom: 10px;
+        }
+
+        .slide-header p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.9;
+        }
+
+        .slide-header p,
+        .slide p {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, #E0BBE4 0%, #B794F6 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analogy-box::before {
+            content: "💡";
+            font-size: 3em;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.3;
+        }
+
+        .analogy-box h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .analogy-box p {
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .output-block {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border-right: 4px solid #50FA7B;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .output-block h4 {
+            color: #50FA7B;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .output-block pre {
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .answer-box {
+            background: #2D2654;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            border-right: 4px solid #FF9F43;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .answer-box h4 {
+            color: #FF9F43;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .answer-box pre {
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .quiz-box {
+            background: #EDEDED;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #B794F6;
+        }
+
+        .quiz-box h3 {
+            color: #1E1A3B;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .quiz-box p {
+            color: #444;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: #FFF4E6;
+            border-right: 4px solid #FF9F43;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box p {
+            color: #333;
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #E0BBE4;
+            font-size: 0.95em;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            pointer-events: none;
+        }
+
+        .top-nav-btn {
+            background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Vazirmatn', sans-serif;
+            box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3);
+            pointer-events: auto;
+        }
+
+        .top-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5);
+        }
+
+        .top-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .bottom-nav-btn {
+            background: linear-gradient(135deg, #B794F6 0%, #9B7ED6 100%);
+            color: white;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(183, 148, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bottom-nav-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .bottom-nav-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(183, 148, 246, 0.5);
+        }
+
+        /* استایل‌های جدید برای هایلایت کد */
+        .code-keyword {
+            color: #FF79C6;
+        }
+
+        /* کلمات کلیدی */
+        .code-function {
+            color: #50FA7B;
+        }
+
+        /* نام توابع */
+        .code-string {
+            color: #F1FA8C;
+        }
+
+        /* رشته‌ها */
+        .code-number {
+            color: #BD93F9;
+        }
+
+        /* اعداد */
+        .code-comment {
+            color: #6272A4;
+        }
+
+        /* کامنت‌ها */
+        .code-operator {
+            color: #FFB86C;
+        }
+
+        /* عملگرها */
+        .code-builtin {
+            color: #8BE9FD;
+        }
+
+        /* توابع داخلی */
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .slide {
+                padding: 30px 20px;
+            }
+
+            .slide-header h2 {
+                font-size: 1.6em;
+            }
+
+            .top-nav {
+                padding: 0 15px;
+            }
+
+            .top-nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .bottom-nav {
+                bottom: 20px;
+                left: 20px;
+                gap: 10px;
+            }
+
+            .bottom-nav-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .bottom-nav-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-nav">
+        <button class="top-nav-btn" id="prevBtn" onclick="goToPrevious()">→ قبلی</button>
+        <button class="top-nav-btn" id="nextBtn" onclick="goToNext()">بعدی ←</button>
+    </div>
+    <div class="bottom-nav">
+        <button class="bottom-nav-btn" id="scrollToTopBtn" onclick="scrollToTop()" title="برو به بالا"><svg
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" />
+            </svg></button>
+        <button class="bottom-nav-btn" id="prevPageBtn" onclick="goToPreviousPage()" title="صفحه قبل"><svg
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+            </svg></button>
+        <button class="bottom-nav-btn" id="homeBtn" onclick="goToHome()" title="صفحه اصلی"><svg
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z" />
+            </svg></button>
+    </div>
+
+    <div class="container">
+
+        <header>
+            <h1>ساختار انتخاب: شرط‌ها</h1>
+            <p>استفاده از شرط‌ها با عملگرهای منطقی و مقایسه‌ای برای تصمیم‌گیری در برنامه‌ها</p>
+        </header>
+
+        <!-- slide 1 -->
+
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2> ۱. ساختار انتخاب</h2>
+                <p>ساختارهای انتخاب (Selection structures) به برنامه‌ها اجازه می‌دهند بر اساس درست یا نادرست بودن یک
+                    شرط، تصمیم‌گیری کرده و بخش‌های متفاوتی از کد را اجرا کنند. متداول‌ترین ساختار انتخاب در پایتون،
+                    عبارت شرطی (conditional statement) است که یک شرط را ارزیابی کرده و بر اساس نتیجه آن، کد مناسب را
+                    اجرا می‌کند.
+                </p>
+            </div>
+
+            <div class="analogy-box">
+                <h3>🔍 تشبیه: چراغ راهنمایی</h3>
+                <p>ساختار انتخاب در پایتون مانند چراغ راهنمایی در چهارراه است. وقتی به چراغ نگاه می‌کنی، بر اساس رنگ آن
+                    تصمیم می‌گیری چه کاری انجام دهی؛ اگر چراغ سبز است حرکت می‌کنی، اگر زرد است آماده توقف می‌شوی و اگر
+                    قرمز است توقف می‌کنی. به همین ترتیب، در برنامه‌نویسی هم با استفاده از ساختار انتخاب مشخص می‌کنی که
+                    در هر وضعیت، چه کاری باید انجام شود.</p>
+            </div>
+
+            <div class="analogy-box">
+                <h3>🩺 مثال واقعی: تصمیم‌گیری پزشک</h3>
+                <p>در پزشکی، پزشک هم مانند برنامه‌نویس از ساختارهای انتخاب استفاده می‌کند. مثلاً اگر دمای بدن بیمار
+                    بالاست و گلو درد دارد، پزشک احتمال عفونت را بررسی می‌کند؛ در غیر این صورت ممکن است به سرماخوردگی
+                    ساده یا آلرژی مشکوک شود. این تصمیم‌ها شبیه استفاده از <code>if</code> و <code>else</code> در
+                    برنامه‌نویسی هستند.</p>
+                <p>در شکل زیر فلوچارت مراحل مراجعه‌ی یک بیمار به درمانگاه را مشاهده می‌کنید که بر مبنای یک سری شرط‌ها یک
+                    اتفاق می‌افتد:</p>
+                <div style="text-align:center; margin-top:20px;">
+                    <img src="../../assets/medical-services.png" alt="Medical Diagnosis Flowchart"
+                        style="max-width:100%; border-radius:12px; box-shadow:0 5px 25px rgba(0,0,0,0.2);">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- slide 2 -->
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2> ۲. عبارات بولی</h2>
+                <p>
+                    عبارات بولی عباراتی هستند که نتیجه‌ی آن‌ها فقط می‌تواند True (درست) یا False (نادرست) باشد.
+                    در واقع، یک عبارت بولی معمولاً از <strong>عملگرهای مقایسه‌ای</strong> مانند <code>==</code>،
+                    <code>!=</code>، <code>&gt;</code>، <code>&lt;</code> و همچنین <strong>عملگرهای منطقی</strong> مثل
+                    <code>and</code>، <code>or</code> و <code>not</code> تشکیل می‌شود.
+                    به عنوان مثال، عبارت <code>a &gt; b</code> بررسی می‌کند آیا مقدار <code>a</code> بزرگ‌تر از
+                    <code>b</code> است یا نه.
+                    در برنامه‌نویسی، از این عبارات برای تصمیم‌گیری استفاده می‌شود؛ یعنی در ساختارهایی مثل
+                    <code>if</code>، <code>while</code> یا حتی در <code>filter()</code> و
+                    <code>list comprehension</code>‌ها، شرط‌های بولی تعیین می‌کنند کدام بخش از کد اجرا شود یا کدام
+                    داده‌ها انتخاب شوند.
+                </p>
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span>a</span> <span class="code-operator">=</span> <span class="code-number">7</span>
+<span>b</span> <span class="code-operator">=</span> <span class="code-number">3</span>
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">&gt;</span> <span>b</span>)
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">==</span> <span>b</span>)
+                </pre>
+            </div>
+            <div class="output-block">
+                <h4>خروجی</h4>
+                <pre>
+<span class="code-keyword">True</span>
+<span class="code-keyword">False</span>
+                </pre>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ خروجی کد زیر چیست؟</h3>
+                <div class="output-block" style="direction: ltr; text-align: left;">
+                    <pre>
+<span>a</span> <span class="code-operator">=</span> <span class="code-number">4</span>
+<span>b</span> <span class="code-operator">=</span> <span class="code-number">7</span>
+<span>c</span> <span class="code-operator">=</span> <span class="code-number">2</span>
+
+<span>result</span> <span class="code-operator">=</span> (<span>a</span> <span class="code-operator">*</span> <span class="code-number">2</span> <span class="code-operator">&gt;</span> <span>b</span>) <span class="code-keyword">or</span> (<span>b</span> <span class="code-operator">%</span> <span>c</span> <span class="code-operator">==</span> <span class="code-number">1</span> <span class="code-keyword">and</span> <span class="code-keyword">not</span> (<span>a</span> <span class="code-operator">+</span> <span>c</span> <span class="code-operator">==</span> <span class="code-number">6</span>))
+<span class="code-builtin">print</span>(<span>result</span>)
+                    </pre>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- slide 3 -->
+
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2> ۳. عملگرهای مقایسه‌ای و منطقی</h2>
+                <p>
+                <table class="operator-table">
+                    <tr>
+                        <th>عملگر</th>
+                        <th>توضیح</th>
+                    </tr>
+                    <tr>
+                        <td>==</td>
+                        <td>بررسی می‌کند که دو مقدار برابر هستند یا نه</td>
+                    </tr>
+                    <tr>
+                        <td>!=</td>
+                        <td>بررسی می‌کند که دو مقدار نابرابر هستند یا نه</td>
+                    </tr>
+                    <tr>
+                        <td>&gt;</td>
+                        <td>بررسی می‌کند آیا مقدار سمت چپ بزرگ‌تر از سمت راست است</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;</td>
+                        <td>بررسی می‌کند آیا مقدار سمت چپ کوچک‌تر از سمت راست است</td>
+                    </tr>
+                    <tr>
+                        <td>&gt;=</td>
+                        <td>بررسی می‌کند آیا مقدار سمت چپ بزرگ‌تر یا مساوی سمت راست است</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;=</td>
+                        <td>بررسی می‌کند آیا مقدار سمت چپ کوچک‌تر یا مساوی سمت راست است</td>
+                    </tr>
+                    <tr>
+                        <td>and</td>
+                        <td>در صورتی True می‌شود که هر دو شرط درست باشند</td>
+                    </tr>
+                    <tr>
+                        <td>or</td>
+                        <td>در صورتی True می‌شود که حداقل یکی از شرط‌ها درست باشد</td>
+                    </tr>
+                    <tr>
+                        <td>not</td>
+                        <td>نتیجه‌ی عبارت بولی را برعکس می‌کند</td>
+                    </tr>
+                </table>
+                </p>
+                <p></p>
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span class="code-comment"># مقایسه اعداد</span>
+<span>a</span> <span class="code-operator">=</span> <span class="code-number">10</span>
+<span>b</span> <span class="code-operator">=</span> <span class="code-number">5</span>
+                    
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">==</span> <span>b</span>)   <span class="code-comment"># آیا a برابر b است؟ → False</span>
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">!=</span> <span>b</span>)   <span class="code-comment"># آیا a نابرابر b است؟ → True</span>
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">&gt;</span> <span>b</span>)    <span class="code-comment"># آیا a بزرگ‌تر از b است؟ → True</span>
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">&lt;</span> <span>b</span>)    <span class="code-comment"># آیا a کوچک‌تر از b است؟ → False</span>
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">&gt;=</span> <span>b</span>)   <span class="code-comment"># آیا a بزرگ‌تر یا مساوی b است؟ → True</span>
+<span class="code-builtin">print</span>(<span>a</span> <span class="code-operator">&lt;=</span> <span>b</span>)   <span class="code-comment"># آیا a کوچک‌تر یا مساوی b است؟ → False</span>
+                    
+<span class="code-comment"># استفاده از عملگرهای منطقی</span>
+<span>x</span> <span class="code-operator">=</span> <span class="code-number">7</span>
+<span>y</span> <span class="code-operator">=</span> <span class="code-number">3</span>
+                    
+<span class="code-builtin">print</span>(<span>x</span> <span class="code-operator">&gt;</span> <span class="code-number">5</span> <span class="code-keyword">and</span> <span>y</span> <span class="code-operator">&lt;</span> <span class="code-number">5</span>)  <span class="code-comment"># True فقط اگر هر دو شرط درست باشند → True</span>
+<span class="code-builtin">print</span>(<span>x</span> <span class="code-operator">&gt;</span> <span class="code-number">5</span> <span class="code-keyword">or</span> <span>y</span> <span class="code-operator">&gt;</span> <span class="code-number">5</span>)   <span class="code-comment"># True اگر حداقل یکی درست باشد → True</span>
+<span class="code-builtin">print</span>(<span class="code-keyword">not</span>(<span>x</span> <span class="code-operator">&gt;</span> <span class="code-number">5</span>))       <span class="code-comment"># نتیجه را برعکس می‌کند → False</span>
+                </pre>
+            </div>
+
+
+            <div class="highlight-box">
+                <p>💡 نکات کلیدی درباره عملگرهای مقایسه‌ای و منطقی در پایتون:<br>
+                    1. خروجی تمام عملگرهای مقایسه‌ای و منطقی همیشه True یا False است.<br>
+                    2. ترتیب اولویت عملگرها مهم است: not > and > or؛ در صورت نیاز از پرانتز استفاده کنید.<br>
+                    3. and یعنی همه شرط‌ها باید درست باشند، or یعنی حداقل یکی درست باشد، و not نتیجه را برعکس
+                    می‌کند.<br>
+                    4. مقادیر غیر بولی هم در شرط‌ها تفسیر می‌شوند: مقادیر صفر یا خالی → False، سایر مقادیر → True.</p>
+            </div>
+
+        </section>
+
+        <!-- slide 4 -->
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2> ۴. if-else</h2>
+                <p>در برنامه‌نویسی، دستور <code>if</code> برای تصمیم‌گیری استفاده می‌شود. با استفاده از <code>if</code>
+                    مشخص می‌کنیم که اگر یک شرط خاص درست بود، بلوک کد مربوطه اجرا شود.</p>
+                <p>دستور <code>else</code> مسیر جایگزین را مشخص می‌کند. یعنی اگر شرط <code>if</code> نادرست باشد، بلوک
+                    کد داخل <code>else</code> اجرا می‌شود و برنامه می‌تواند بر اساس شرایط مختلف رفتار متفاوت داشته باشد.
+                </p>
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span>a</span> <span class="code-operator">=</span> <span class="code-number">75</span>
+<span>passing_score</span> <span class="code-operator">=</span> <span class="code-number">50</span>
+                
+<span class="code-keyword">if</span> <span>a</span> <span class="code-operator">&gt;=</span> <span>passing_score</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"قبول شدی!"</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"رد شدی!"</span>)
+                </pre>
+            </div>
+
+
+            <div class="highlight-box">
+                <p>💡 از دستورهای if-else زمانی استفاده کنید که گزینه‌ها **یکدیگر را نفی می‌کنند**. یعنی اگر یک گزینه
+                    درست باشد، سایر گزینه‌ها حتماً نادرست هستند. از دستورهای if-elif-else زمانی استفاده کنید که گزینه‌ها
+                    **یکدیگر را نفی نمی‌کنند**. یعنی ممکن است بیش از یک گزینه همزمان درست باشد.</p>
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span>score</span> <span class="code-operator">=</span> <span class="code-number">85</span>
+                    
+<span class="code-keyword">if</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">90</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"نمره: A"</span>)
+<span class="code-keyword">elif</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">80</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"نمره: B"</span>)
+<span class="code-keyword">elif</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">70</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"نمره: C"</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"نمره: F"</span>)
+                </pre>
+            </div>
+
+        </section>
+
+        <!-- slide 5: elif -->
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2>۵. دستور elif</h2>
+                <p>
+                    دستور <code>elif</code> (مخفف <em>else if</em>) زمانی استفاده می‌شود که بخواهیم چند شرط را به ترتیب
+                    بررسی کنیم.
+                    اگر شرط اول (<code>if</code>) برقرار نباشد، پایتون سراغ <code>elif</code> بعدی می‌رود تا ببیند آیا
+                    آن شرط برقرار است یا نه.
+                    در صورتی که هیچ‌کدام از شرط‌های <code>if</code> یا <code>elif</code> برقرار نباشند، در نهایت بلوک
+                    <code>else</code> (در صورت وجود) اجرا می‌شود.
+                </p>
+                <p>
+                    با استفاده از <code>elif</code> می‌توان مسیر تصمیم‌گیری را به چند شاخه تقسیم کرد. این ساختار زمانی
+                    مفید است که چند حالت ممکن وجود دارد، ولی فقط یکی از آن‌ها باید اجرا شود.
+                </p>
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span>temperature</span> <span class="code-operator">=</span> <span class="code-number">25</span>
+
+<span class="code-keyword">if</span> <span>temperature</span> <span class="code-operator">&gt;</span> <span class="code-number">30</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"هوا خیلی گرم است!"</span>)
+<span class="code-keyword">elif</span> <span>temperature</span> <span class="code-operator">&gt;=</span> <span class="code-number">20</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"هوا مطلوب است."</span>)
+<span class="code-keyword">elif</span> <span>temperature</span> <span class="code-operator">&gt;=</span> <span class="code-number">10</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"هوا کمی خنک است."</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"هوا سرد است."</span>)
+                </pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 نکات مهم درباره elif:<br>
+                    1. هر تعداد <code>elif</code> که بخواهید می‌توانید استفاده کنید.<br>
+                    2. فقط اولین شرطی که برقرار باشد اجرا می‌شود، بقیه نادیده گرفته می‌شوند.<br>
+                    3. بلوک <code>else</code> اختیاری است اما بهتر است برای پوشش حالت‌های غیرمنتظره وجود داشته باشد.<br>
+                    4. ترتیب نوشتن شرط‌ها بسیار مهم است؛ شرط‌های خاص‌تر باید قبل از شرط‌های کلی‌تر بیایند.
+                </p>
+            </div>
+
+            <div class="quiz-box">
+                <h3>❓ خروجی کد زیر چیست؟</h3>
+                <div class="output-block" style="direction: ltr; text-align: left;">
+                    <pre>
+<span>score</span> <span class="code-operator">=</span> <span class="code-number">65</span>
+
+<span class="code-keyword">if</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">90</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"Excellent"</span>)
+<span class="code-keyword">elif</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">70</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"Good"</span>)
+<span class="code-keyword">elif</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">50</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"Pass"</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"Fail"</span>)
+                    </pre>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- slide 6: جریان اجرای if-elif-else -->
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2>۶. ساختار if - elif - else و جریان اجرا</h2>
+                <p>
+                    وقتی پایتون به یک ساختار <code>if-elif-else</code> می‌رسد، شرط‌ها را به ترتیب از بالا به پایین بررسی
+                    می‌کند:
+                </p>
+                <ol>
+                    <li>ابتدا شرط داخل <code>if</code> بررسی می‌شود.</li>
+                    <li>اگر شرط درست بود، فقط همان بلوک اجرا می‌شود و بقیه شرط‌ها نادیده گرفته می‌شوند.</li>
+                    <li>اگر شرط نادرست بود، به سراغ اولین <code>elif</code> می‌رود و آن را بررسی می‌کند.</li>
+                    <li>اگر هیچ شرطی درست نبود و <code>else</code> وجود داشته باشد، بلوک <code>else</code> اجرا می‌شود.
+                    </li>
+                </ol>
+                <p>این روند باعث می‌شود فقط یکی از شاخه‌های تصمیم اجرا شود — دقیقاً مثل مسیر انتخاب در فلوچارت.</p>
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span>age</span> <span class="code-operator">=</span> <span class="code-number">16</span>
+
+<span class="code-keyword">if</span> <span>age</span> <span class="code-operator">&gt;=</span> <span class="code-number">18</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"بزرگسال"</span>)
+<span class="code-keyword">elif</span> <span>age</span> <span class="code-operator">&gt;=</span> <span class="code-number">13</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"نوجوان"</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"کودک"</span>)
+                </pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 نکته: همیشه فقط اولین شرط درست اجرا می‌شود. پس ترتیب شرط‌ها اهمیت زیادی دارد!</p>
+            </div>
+
+            <!-- تمرین جدید -->
+            <div class="quiz-box">
+                <h4>❓ تمرین</h4>
+                <p>دو شرط اول در این کد برای چه افرادی <strong>True</strong> می‌شود؟  
+خروجی کد را برای سن‌های <code>10</code> و <code>54</code> بنویسید.</p>
+                <div class="output-block" style="direction:ltr; text-align:left;">
+                    <pre>
+<span class="code-keyword">if</span> (<span class="code-keyword">not</span> (<span>Age</span> <span class="code-operator">&gt;</span> <span class="code-number">20</span> <span class="code-keyword">and</span> <span>Age</span> <span class="code-operator">%</span> <span class="code-number">2</span> <span class="code-operator">==</span> <span class="code-number">0</span>) <span class="code-keyword">or</span> <span>Age</span> <span class="code-operator">&gt;</span> <span class="code-number">60</span>):  
+    <span class="code-builtin">print</span>(<span class="code-string">"50%"</span>)
+<span class="code-keyword">if</span> (<span class="code-keyword">not</span> (<span>Age</span> <span class="code-operator">&lt;</span> <span class="code-number">50</span>) <span class="code-keyword">or</span> <span>Age</span> <span class="code-operator">&gt;</span> <span class="code-number">60</span>):  
+    <span class="code-builtin">print</span>(<span class="code-string">"20%"</span>)
+<span class="code-keyword">elif</span> (<span>Age</span> <span class="code-operator">==</span> <span class="code-number">54</span>):  
+    <span class="code-builtin">print</span>(<span class="code-string">"54%"</span>)
+<span class="code-keyword">else</span>:  
+    <span class="code-builtin">print</span>(<span class="code-string">"0"</span>)
+                    </pre>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- slide 7 -->
+        <section class="slide">
+
+            <div class="slide-header">
+                <h2> ۷.انتخاب‌های چندگانه و تودرتو</h2>
+                <p style="line-height: 1.9;">
+                    انتخاب‌های چندگانه و تودرتو در پایتون به شما اجازه می‌دهند تصمیمات پیچیده‌تری بگیرید.<br>
+                    - <strong>انتخاب چندگانه</strong> با استفاده از <code>if-elif-else</code> انجام می‌شود و امکان بررسی چند شرط مختلف را فراهم می‌کند.<br>
+                    - <strong>انتخاب تودرتو</strong> زمانی استفاده می‌شود که بخواهید یک <code>if</code> را درون یک <code>if</code> دیگر قرار دهید تا شرط‌های وابسته به هم را بررسی کنید.<br>
+                    این ساختارها به برنامه اجازه می‌دهند رفتارهای متفاوتی بر اساس شرایط مختلف و ترکیبی از آن‌ها داشته باشد.
+                </p>
+
+            </div>
+
+            <div class="output-block">
+                <h4>مثال</h4>
+                <pre>
+<span class="code-keyword">if</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">50</span><span class="code-operator">:</span>
+   <span class="code-builtin">print</span>(<span class="code-string">"You passed."</span>)
+   <span class="code-keyword">if</span> <span>score</span> <span class="code-operator">&gt;=</span> <span class="code-number">90</span><span class="code-operator">:</span>
+        <span class="code-builtin">print</span>(<span class="code-string">"Excellent!"</span>)
+   <span class="code-keyword">else</span><span class="code-operator">:</span>
+        <span class="code-builtin">print</span>(<span class="code-string">"Good job."</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+   <span class="code-builtin">print</span>(<span class="code-string">"You failed."</span>)
+                </pre>
+            </div>
+
+            <div class="highlight-box">
+                <p>💡 نکات کلیدی درباره انتخاب‌های چندگانه و تودرتو در پایتون:<br>
+                    1. در ساختار <code>if-elif-else</code> تنها اولین شرط درست اجرا می‌شود و بقیه نادیده گرفته
+                    می‌شوند.<br>
+                    2. انتخاب تودرتو برای شرط‌های وابسته استفاده می‌شود تا تصمیم‌گیری دقیق‌تر انجام شود.<br>
+                    3. خوانایی کد مهم است؛ استفاده بیش از حد از تودرتو باعث کاهش خوانایی می‌شود.<br>
+                    4. می‌توان ترکیبی از <code>if-elif-else</code> و تودرتو داشت تا رفتارهای متفاوت پوشش داده شود.</p>
+            </div>
+
+
+            <div class="quiz-box">
+                <h3>❓ خروجی کد زیر چیست؟</h3>
+                <p>
+                <div class="output-block">
+                    <pre>
+<span>age</span> <span class="code-operator">=</span> <span class="code-number">20</span>
+<span>student</span> <span class="code-operator">=</span> <span class="code-keyword">True</span>
+            
+<span class="code-keyword">if</span> <span>age</span> <span class="code-operator">&gt;=</span> <span class="code-number">18</span><span class="code-operator">:</span>
+    <span class="code-keyword">if</span> <span>student</span><span class="code-operator">:</span>
+        <span class="code-builtin">print</span>(<span class="code-string">"بلیط با تخفیف!"</span>)
+    <span class="code-keyword">else</span><span class="code-operator">:</span>
+        <span class="code-builtin">print</span>(<span class="code-string">"بلیط معمولی."</span>)
+<span class="code-keyword">else</span><span class="code-operator">:</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"بلیط برای نوجوانان"</span>)
+                        </pre>
+                </div>
+                <br>
+                گزینه‌ها:<br>
+                A) بلیط معمولی.<br>
+                B) بلیط برای نوجوانان.<br>
+                C) بلیط با تخفیف! ✅<br>
+                D) هیچ چیزی چاپ نمی‌شود
+                </p>
+            </div>
+
+            <div class="quiz-box">
+                <h4>🧠 تمرین</h4>
+                <p>
+                    بر اساس <strong>فلوچارت روند درمانی بیمار در درمانگاه</strong> که در ابتدای این درس نمایش داده شد،  
+                    کدی بنویسید که همان منطق تصمیم‌گیری را با استفاده از ساختارهای <code>if</code>، <code>elif</code> و <code>else</code> پیاده‌سازی کند.  
+                    توجه کنید که کد باید بتواند بر اساس شرایط مختلف بیمار (مثلاً دما، گلودرد یا علائم دیگر) تصمیم مناسب را چاپ کند.
+                </p>
+            </div>
+
+
+
+        </section>
+
+        <!-- ======================= شروع اسلاید پایانی ======================= -->
+        <section class="slide" id="slide-final">
+            <div class="slide-header">
+                <h2>🎉 تبریک! شما مباحث ساختارهای انتخاب را یاد گرفتید!</h2>
+                <p>
+                    در این بخش یاد گرفتید چگونه با استفاده از <b>عبارات بولی</b>، <b>عملگرهای منطقی</b> و <b>دستورات شرطی if، elif و else</b>
+                    تصمیم‌گیری‌های هوشمندانه‌ای در برنامه‌های خود انجام دهید.
+                </p>
+                <p>
+                    اکنون می‌توانید کدهایی بنویسید که رفتارشان بر اساس شرایط متفاوت تغییر کند؛
+                    از تصمیم‌گیری‌های ساده گرفته تا منطق‌های پیچیده مثل فلوچارت تصمیم‌گیری پزشک.
+                </p>
+                <p>
+                    <b>کاربردهای ساختار انتخاب:</b><br>
+                    - تصمیم‌گیری بر اساس ورودی‌های کاربر یا داده‌ها<br>
+                    - کنترل مسیر اجرای برنامه در شرایط مختلف<br>
+                    - ساخت منطق‌های شرطی برای سیستم‌های هوشمند یا پزشکی<br>
+                    - ترکیب شرط‌ها برای مدل‌سازی تصمیم‌های واقعی در دنیای پیرامون
+                </p>
+            </div>
+            <div class="highlight-box">
+                <p>
+                    <b>قدم بعدی:</b><br>
+                    در بخش بعدی با <b>حلقه‌ها (Loops)</b> آشنا خواهید شد — ساختاری که به شما اجازه می‌دهد
+                    <b>دستوراتی را به‌صورت تکراری</b> اجرا کنید و برنامه‌هایی بسازید که کارهای خودکار انجام می‌دهند!
+                </p>
+            </div>
+        </section>
+        <!-- ======================= پایان اسلاید پایانی ======================= -->
+        <footer>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2025 - دانشکده‌ی مهندسی کامپیوتر دانشگاه صنعتی شریف</p>
+        </footer>
+    </div>
+
+    <script>
+        // کدهای جاوااسکریپت برای دکمه‌ها - بهتر است تغییر ندهید
+        function goToPrevious() { window.location.href = '03.html'; /* آدرس صفحه قبلی */ }
+        function goToNext() { window.location.href = '05.html'; /* آدرس صفحه بعدی */ }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function goToPreviousPage() { window.location.href = 'index.html'; }
+        function goToHome() { window.location.href = '../../index.html'; /* آدرس صفحه اصلی */ }
+
+        // این بخش را برای مدیریت دکمه قبلی/بعدی در هر صفحه تنظیم کنید
+        const currentSlide = '04'; // شماره این اسلاید
+        if (currentSlide === '01') {
+            document.getElementById('prevBtn').disabled = true;
+        }
+    </script>
+</body>
+
+</html>
